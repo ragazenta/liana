@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block header %}
+	<h1>{% block title %}Apps{% endblock %}</h1>
+	<a class="action" href="{{ url_for('app.create') }}">New</a>
+	{% if g.user %}
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	<table>
+		<thead>
+			<tr>
+				<th>Application</th>
+				<th>Secret Algorithm</th>
+				<th>Licenses</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for a in apps %}
+			<tr>
+				<td><a href="{{ a['code'] }}">{{ a["code"] }}</a></td>
+				<td>{{ a["algorithm"] }}</td>
+				<td>{{ a["lic"] }}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
