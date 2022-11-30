@@ -14,6 +14,7 @@
 				<th>Application</th>
 				<th>Secret Algorithm</th>
 				<th>Licenses</th>
+				<th>Action</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -22,6 +23,9 @@
 				<td><a href="{{ a['code'] }}">{{ a["code"] }}</a></td>
 				<td>{{ a["algorithm"] }}</td>
 				<td>{{ a["lic"] }}</td>
+				<td>
+					<a class="action" href="{{ url_for('app.update') }}">Edit</a>
+				</td>
 			</tr>
 		{% endfor %}
 		</tbody>

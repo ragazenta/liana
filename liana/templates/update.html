@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Update{% endblock %}</h1>    
+{% endblock %}
+
+{% block content %}
+
+<form method="post">
+    <label for="AppCode">Application</label>
+    <input name="AppCode" id="AppCode" value="{{ request.form['AppCode'] }}" required>
+    <label for="Algorithm">Secret Algorithm</label>
+    <select name="Algorithm" id="Algorithm" value="{{ request.form['Algorithm'] }}">
+        <option></option>
+        <option>EC256</option>
+        <option>Ed25519</option>
+    </select>
+    <!-- <label for="SignatureKey">SignatureKey</label>
+    <input name="SignatureKey" id="SignatureKey" value="{{ request.form['SignatureKey'] }}">
+    <label for="PrivateKey">PrivateKey</label>
+    <input name="PrivateKey" id="PrivateKey" value="{{ request.form['PrivateKey'] }}"> -->
+    <label for="CreatedBy">CreatedBy</label>
+    <input name="CreatedBy" id="CreatedBy" value="{{ request.form['CreatedBy'] }}">
+    <input type="submit" value="Save">
+</form>
+
+{% endblock %}
+
+<!-- or Application['AppCode'] -->
