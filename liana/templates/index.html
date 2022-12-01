@@ -24,7 +24,7 @@
 				<td>{{ a["algorithm"] }}</td>
 				<td>{{ a["lic"] }}</td>
 				<td>
-					<a class="action" href="{{ url_for('app.update') }}">Edit</a>
+					<a class="action" href="{{ url_for('app.update', appcode=a["code"]) }}">Edit</a>
 				</td>
 			</tr>
 		{% endfor %}

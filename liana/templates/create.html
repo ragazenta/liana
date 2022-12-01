@@ -8,9 +8,9 @@
 
 <form method="post">
     <label for="AppCode">Application</label>
-    <input name="AppCode" id="AppCode" value="{{ request.form['AppCode'] }}" required>
+    <input name="AppCode" id="AppCode" value="{{ request.form['code'] }}" required>
     <label for="Algorithm">Secret Algorithm</label>
-    <select name="Algorithm" id="Algorithm" value="{{ request.form['Algorithm'] }}">
+    <select name="Algorithm" id="Algorithm" value="{{ request.form['algorithm'] }}">
         <option></option>
         <option>EC256</option>
         <option>Ed25519</option>
@@ -20,7 +20,7 @@
     <label for="PrivateKey">PrivateKey</label>
     <input name="PrivateKey" id="PrivateKey" value="{{ request.form['PrivateKey'] }}"> -->
     <label for="CreatedBy">CreatedBy</label>
-    <input name="CreatedBy" id="CreatedBy" value="{{ request.form['CreatedBy'] }}">
+    <input name="CreatedBy" id="CreatedBy" value="{{ request.form['createdBy'] }}">
     <input type="submit" value="Save">
 </form>
 

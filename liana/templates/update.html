@@ -7,20 +7,31 @@
 {% block content %}
 
 <form method="post">
-    <label for="AppCode">Application</label>
-    <input name="AppCode" id="AppCode" value="{{ request.form['AppCode'] }}" required>
+    <!-- <label for="AppCode">Application</label>
+    <input name="AppCode" id="AppCode" value="{{ request.form['code'] or a['code']  }}" required> -->
     <label for="Algorithm">Secret Algorithm</label>
-    <select name="Algorithm" id="Algorithm" value="{{ request.form['Algorithm'] }}">
+    <select name="Algorithm" id="Algorithm" value="{{ request.form['algorithm'] or a['algorithm'] }}">
         <option></option>
+        {% if a['algorithm'] == "EC256"%}
+        <option selected>EC256</option>
+        {% else %}
         <option>EC256</option>
+        {% endif %}
+
+        {% if a['algorithm'] == "Ed25519"%}
+        <option selected>Ed25519</option>
+        {% else %}
         <option>Ed25519</option>
+        {% endif %}
+
+
     </select>
     <!-- <label for="SignatureKey">SignatureKey</label>
     <input name="SignatureKey" id="SignatureKey" value="{{ request.form['SignatureKey'] }}">
     <label for="PrivateKey">PrivateKey</label>
     <input name="PrivateKey" id="PrivateKey" value="{{ request.form['PrivateKey'] }}"> -->
     <label for="CreatedBy">CreatedBy</label>
-    <input name="CreatedBy" id="CreatedBy" value="{{ request.form['CreatedBy'] }}">
+    <input name="CreatedBy" id="CreatedBy" value="{{ request.form['createdby'] or a['createdby'] }}">
     <input type="submit" value="Save">
 </form>
 
