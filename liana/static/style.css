@@ -1,3 +1,30 @@
 html {
     font-family: serif;
 }
+
+.button-index{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.container-nav{
+    margin: auto;
+}
+
+.container-nav span{
+    font-size: 25px;
+    letter-spacing: 2px;
+}
+
+.table-content{
+    width: 60%;
+    margin: auto;
+}
+
+.content > header > h1{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+

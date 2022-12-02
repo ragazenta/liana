@@ -2,35 +2,39 @@
 
 {% block header %}
 	<h1>{% block title %}Apps{% endblock %}</h1>
-	<a class="action" href="{{ url_for('app.create') }}">New</a>
+	
 	{% if g.user %}
 	{% endif %}
 {% endblock %}
 
 {% block content %}
-	<table>
+<section class="table-content">
+	<a type="sumbit" class="btn btn-success mb-4" href="{{ url_for('app.create') }}">New</a>
+	<table class="table text-center">
 		<thead>
-			<tr>
-				<th>Application</th>
-				<th>Secret Algorithm</th>
-				<th>Licenses</th>
-				<th>Action</th>
-			</tr>
+		  <tr class="table-primary">
+			<th scope="col">Application</th>
+			<th scope="col">Secret Algorithm</th>
+			<th scope="col">Licenses</th>
+			<th scope="col">Action</th>
+		  </tr>
 		</thead>
 		<tbody>
 		{% for a in apps %}
-			<tr>
-				<td><a href="{{ a['code'] }}">{{ a["code"] }}</a></td>
-				<td>{{ a["algorithm"] }}</td>
-				<td>{{ a["lic"] }}</td>
-				<td>
-					<a class="action" href="{{ url_for('app.update', appcode=a["code"]) }}">Edit</a>
-					<form action="{{ url_for('app.delete', appcode=a['code']) }}" method="post">
-						<input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
-					</form>
-				</td>
-			</tr>
+		  <tr>
+			<th scope="row" class="table-secondary"><a href="{{ a['code'] }}">{{ a["code"] }}</a></th>
+			<td class="table-secondary">{{ a["algorithm"] }}</td>
+			<td class="table-secondary">{{ a["lic"] }}</td>
+			<td class="button-index table-secondary">
+				<a type="sumbit" class="btn btn-warning" href="{{ url_for('app.update', appcode=a["code"]) }}">Edit</a>
+				<form action="{{ url_for('app.delete', appcode=a['code']) }}" method="post">
+					<input class="btn btn-danger danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+				</form>
+			</td>
+		  </tr>
 		{% endfor %}
 		</tbody>
-	</table>
+	  </table>
+</section>
+
 {% endblock %}
