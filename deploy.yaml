@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: liana-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: liana-app
+  template:
+    metadata:
+      labels:
+        app: liana-app
+    spec:
+      containers:
+        - name: liana-app
+          image: python-image:latest
+          ports:
+            - name: http
+              containerPort: 8081
+              protocol: TCP
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
