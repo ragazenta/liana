@@ -11,6 +11,8 @@ WORKDIR /projects
 COPY requirements.txt .
 
 # Install any dependencies
+RUN python -m pip install --upgrade pip
+RUN pip install wheel
 RUN pip install -r requirements.txt
 
 # Copy the content of the local src directory to the working directory
