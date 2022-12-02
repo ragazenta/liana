@@ -12,6 +12,8 @@ metadata:
     - Pip
     - Flask
     - Cryptography
+  attributes:
+    alpha.dockerimage-port: 8081
 components:
   - name: image-build
     image:
