@@ -1,8 +1,7 @@
 FROM registry.access.redhat.com/ubi9/python-39:latest
 
 # By default, listen on port 8081
-EXPOSE 8081/tcp
-ENV FLASK_PORT=8081
+EXPOSE 5000/tcp
 
 # Set the working directory in the container
 WORKDIR /projects
@@ -19,4 +18,4 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # Specify the command to run on container start
-CMD [ "flask", "--app", "liana", "--debug", "run" ]
+CMD [ "flask", "--app", "liana", "--debug", "run", "--host=0.0.0.0" ]
