@@ -25,6 +25,9 @@
 				<td>{{ a["lic"] }}</td>
 				<td>
 					<a class="action" href="{{ url_for('app.update', appcode=a["code"]) }}">Edit</a>
+					<form action="{{ url_for('app.delete', appcode=a['code']) }}" method="post">
+						<input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+					</form>
 				</td>
 			</tr>
 		{% endfor %}

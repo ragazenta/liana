@@ -138,7 +138,20 @@ def update(appcode):
 
     return render_template("update.html", a=aps)
 
-    # End Update
+            # End Update
+
+            # Delete
+
+@bp.route('/<appcode>/delete', methods=('POST',))
+def delete(appcode):
+    get_post(appcode)
+    db = get_db()
+    cur= db.cursor()
+    cur.execute('DELETE FROM Application WHERE AppCode = %s', (appcode,))
+    db.commit()
+    return redirect(url_for('index'))
+
+            # End Delete
 
 
 @bp.route("/<appcode>")
