@@ -39,7 +39,7 @@ def index():
 @bp.route("/create", methods=("GET", "POST"))
 def create():
     if request.method == "POST":
-        code = request.form["AppCode"]
+        code = request.form["appcode"]
         algorithm = request.form["Algorithm"]
         # PrivateKey = request.form['PrivateKey']
         # SignatureKey = request.form['SignatureKey']
@@ -110,7 +110,7 @@ def update(appcode):
         error = None
 
         # if not code:
-            # error = "AppCode is required."
+        # error = "AppCode is required."
 
         if algorithm == "EC256":
             signaturekey = crypto.export_privkey(crypto.generate_ec256_privkey())
@@ -138,20 +138,21 @@ def update(appcode):
 
     return render_template("update.html", a=aps)
 
-            # End Update
+    # End Update
 
-            # Delete
+    # Delete
 
-@bp.route('/<appcode>/delete', methods=('POST',))
+
+@bp.route("/<appcode>/delete", methods=("POST",))
 def delete(appcode):
     get_post(appcode)
     db = get_db()
-    cur= db.cursor()
-    cur.execute('DELETE FROM Application WHERE AppCode = %s', (appcode,))
+    cur = db.cursor()
+    cur.execute("DELETE FROM Application WHERE AppCode = %s", (appcode,))
     db.commit()
-    return redirect(url_for('index'))
+    return redirect(url_for("index"))
 
-            # End Delete
+    # End Delete
 
 
 @bp.route("/<appcode>")

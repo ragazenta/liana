@@ -28,3 +28,17 @@ html {
     margin-bottom: 20px;
 }
 
+.content > .form-created{
+    margin: auto;
+    width: 50%;
+    height: 400px;
+    border: solid 1px grey;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px grey;
+}
+
+.content > .form-created > .Application{
+    margin: auto;
+    width: 50%;
+}
+

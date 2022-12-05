@@ -9,8 +9,8 @@
 <form method="post">
     <!-- <label for="AppCode">Application</label>
     <input name="AppCode" id="AppCode" value="{{ request.form['code'] or a['code']  }}" required> -->
-    <label for="Algorithm">Secret Algorithm</label>
-    <select name="Algorithm" id="Algorithm" value="{{ request.form['algorithm'] or a['algorithm'] }}">
+    <label for="algorithm">Secret Algorithm</label>
+    <select name="algorithm" id="algorithm" value="{{ request.form['algorithm'] or a['algorithm'] }}">
         <option></option>
         {% if a['algorithm'] == "EC256"%}
         <option selected>EC256</option>
@@ -30,8 +30,8 @@
     <input name="SignatureKey" id="SignatureKey" value="{{ request.form['SignatureKey'] }}">
     <label for="PrivateKey">PrivateKey</label>
     <input name="PrivateKey" id="PrivateKey" value="{{ request.form['PrivateKey'] }}"> -->
-    <label for="CreatedBy">CreatedBy</label>
-    <input name="CreatedBy" id="CreatedBy" value="{{ request.form['createdby'] or a['createdby'] }}">
+    <label for="createdby">CreatedBy</label>
+    <input name="createdby" id="createdby" value="{{ request.form['createdby'] or a['createdby'] }}">
     <input type="submit" value="Save">
 </form>
 

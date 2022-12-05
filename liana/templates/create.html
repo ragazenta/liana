@@ -1,26 +1,33 @@
 {% extends "base.html" %}
 
 {% block header %}
-    <h1>{% block title %}New{% endblock %}</h1>    
+<h1>{% block title %}New{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
 
-<form method="post">
-    <label for="AppCode">Application</label>
-    <input name="AppCode" id="AppCode" value="{{ request.form['code'] }}" required>
-    <label for="Algorithm">Secret Algorithm</label>
-    <select name="Algorithm" id="Algorithm" value="{{ request.form['algorithm'] }}">
-        <option></option>
-        <option>EC256</option>
-        <option>Ed25519</option>
-    </select>
+<form class="form-created" method="post" >
+    <div class="Application">
+        <label for="appcode">Application</label>
+        <input name="appcode" id="appcode" value="{{ request.form['code'] }}" required>
+    </div>
+    <div class="">
+        <label for="Algorithm">Secret Algorithm</label>
+        <select class="btn btn-primary dropdown-toggle" name="Algorithm" id="Algorithm"
+            value="{{ request.form['algorithm'] }}">
+            <option>Select</option>
+            <option>EC256</option>
+            <option>Ed25519</option>
+        </select>
+    </div>
+    <div class="">
+        <label for="CreatedBy">CreatedBy</label>
+        <input name="CreatedBy" id="CreatedBy" value="{{ request.form['createdBy'] }}">
+    </div>
     <!-- <label for="SignatureKey">SignatureKey</label>
     <input name="SignatureKey" id="SignatureKey" value="{{ request.form['SignatureKey'] }}">
     <label for="PrivateKey">PrivateKey</label>
     <input name="PrivateKey" id="PrivateKey" value="{{ request.form['PrivateKey'] }}"> -->
-    <label for="CreatedBy">CreatedBy</label>
-    <input name="CreatedBy" id="CreatedBy" value="{{ request.form['createdBy'] }}">
     <input type="submit" value="Save">
 </form>
 
