@@ -6,33 +6,35 @@
 
 {% block content %}
 
-<form method="post">
-    <!-- <label for="AppCode">Application</label>
-    <input name="AppCode" id="AppCode" value="{{ request.form['code'] or a['code']  }}" required> -->
-    <label for="algorithm">Secret Algorithm</label>
-    <select name="algorithm" id="algorithm" value="{{ request.form['algorithm'] or a['algorithm'] }}">
-        <option></option>
-        {% if a['algorithm'] == "EC256"%}
-        <option selected>EC256</option>
-        {% else %}
-        <option>EC256</option>
-        {% endif %}
-
-        {% if a['algorithm'] == "Ed25519"%}
-        <option selected>Ed25519</option>
-        {% else %}
-        <option>Ed25519</option>
-        {% endif %}
-
-
-    </select>
-    <!-- <label for="SignatureKey">SignatureKey</label>
-    <input name="SignatureKey" id="SignatureKey" value="{{ request.form['SignatureKey'] }}">
-    <label for="PrivateKey">PrivateKey</label>
-    <input name="PrivateKey" id="PrivateKey" value="{{ request.form['PrivateKey'] }}"> -->
-    <label for="createdby">CreatedBy</label>
-    <input name="createdby" id="createdby" value="{{ request.form['createdby'] or a['createdby'] }}">
-    <input type="submit" value="Save">
+<form class="form-2" method="post">
+    <div class="con-2">
+        <div class="kolom-2">
+            <div class="CreatedBy">
+                <label class="form-label" for="CreatedBy">CreatedBy</label>
+                <input class="form-control" name="CreatedBy" id="CreatedBy" value="{{ request.form['createdby'] or a['createdby'] }}">
+            </div>
+        </div>
+        <div class="Algorithm">
+            <label class="form-label" for="Algorithm">Secret Algorithm</label>
+            <select class="btn btn-primary dropdown-toggle" name="Algorithm" id="Algorithm" value="{{ request.form['algorithm'] or a['algorithm'] }}">
+                <option></option>
+                {% if a['algorithm'] == "EC256"%}
+                <option selected>EC256</option>
+                {% else %}
+                <option>EC256</option>
+                {% endif %}
+        
+                {% if a['algorithm'] == "Ed25519"%}
+                <option selected>Ed25519</option>
+                {% else %}
+                <option>Ed25519</option>
+                {% endif %}
+            </select>
+        </div>
+    </div>
+    <div class="con-button">
+        <input class="button-save btn btn-success" type="submit" value="Save">
+    </div>
 </form>
 
 {% endblock %}
