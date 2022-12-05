@@ -7,12 +7,12 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
-        SECRET_KEY="secret",
-        DB_USERNAME="root",
-        DB_PASSWORD="",
-        DB_HOST="127.0.0.1",
-        DB_PORT=3306,
-        DB_NAME="Liana",
+        SECRET_KEY=os.environ.get("SECRET_KEY", "secret"),
+        DB_USERNAME=os.environ.get("DB_USERNAME", "root"),
+        DB_PASSWORD=os.environ.get("DB_PASSWORD", ""),
+        DB_HOST=os.environ.get("DB_HOST", "127.0.0.1"),
+        DB_PORT=int(os.environ.get("DB_PORT", 3306)),
+        DB_NAME=os.environ.get("DB_NAME", "Liana"),
     )
 
     if test_config is None:
@@ -29,9 +29,11 @@ def create_app(test_config=None):
         pass
 
     from . import db
+
     db.init_app(app)
 
     from . import application
+
     app.register_blueprint(application.bp)
     app.add_url_rule("/", endpoint="index")
 
