@@ -10,13 +10,13 @@
     <div class="con-2">
         <div class="kolom-2">
             <div class="CreatedBy">
-                <label class="form-label" for="CreatedBy">CreatedBy</label>
-                <input class="form-control" name="CreatedBy" id="CreatedBy" value="{{ request.form['createdby'] or a['createdby'] }}">
+                <label class="form-label" for="createdby">CreatedBy</label>
+                <input class="form-control" name="createdby" id="createdby" value="{{ request.form['createdby'] or a['createdby'] }}">
             </div>
         </div>
         <div class="Algorithm">
-            <label class="form-label" for="Algorithm">Secret Algorithm</label>
-            <select class="btn btn-primary dropdown-toggle" name="Algorithm" id="Algorithm" value="{{ request.form['algorithm'] or a['algorithm'] }}">
+            <label class="form-label" for="algorithm">Secret Algorithm</label>
+            <select class="btn btn-primary dropdown-toggle" name="algorithm" id="algorithm" value="{{ request.form['algorithm'] or a['algorithm'] }}">
                 <option></option>
                 {% if a['algorithm'] == "EC256"%}
                 <option selected>EC256</option>

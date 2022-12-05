@@ -40,10 +40,10 @@ def index():
 def create():
     if request.method == "POST":
         code = request.form["appcode"]
-        algorithm = request.form["Algorithm"]
+        algorithm = request.form["algorithm"]
         # PrivateKey = request.form['PrivateKey']
         # SignatureKey = request.form['SignatureKey']
-        createdby = request.form["CreatedBy"]
+        createdby = request.form["createdby"]
         error = None
 
         if not code:
@@ -103,10 +103,10 @@ def update(appcode):
 
     if request.method == "POST":
         # code = request.form["AppCode"]
-        algorithm = request.form["Algorithm"]
+        algorithm = request.form["algorithm"]
         # PrivateKey = request.form['PrivateKey']
         # SignatureKey = request.form['SignatureKey']
-        createdby = request.form["CreatedBy"]
+        createdby = request.form["createdby"]
         error = None
 
         # if not code:

@@ -15,14 +15,14 @@
                     value="{{ request.form['code'] }}" required>
             </div>
             <div class="CreatedBy">
-                <label class="form-label" for="CreatedBy">CreatedBy</label>
-                <input class="form-control" name="CreatedBy" id="CreatedBy"
+                <label class="form-label" for="createdby">CreatedBy</label>
+                <input class="form-control" name="createdby" id="createdby"
                     value="{{ request.form['createdBy'] }}">
             </div>
         </div>
         <div class="Algorithm">
-            <label class="form-label" for="Algorithm">Secret Algorithm</label>
-            <select class="btn btn-primary dropdown-toggle" name="Algorithm" id="Algorithm"
+            <label class="form-label" for="algorithm">Secret Algorithm</label>
+            <select class="btn btn-primary dropdown-toggle" name="algorithm" id="algorithm"
                 value="{{ request.form['algorithm'] }}">
                 <option>Select</option>
                 <option>EC256</option>
