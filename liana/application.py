@@ -160,13 +160,19 @@ def get_app(appcode):
     db = get_db()
     cur = db.cursor(dictionary=True)
     cur.execute(
-        "SELECT a.AppCode AS code, a.Algorithm AS algorithm, 0 AS lic"
+        "SELECT a.AppCode AS code, a.SignatureKey AS signkey, a.PrivateKey AS privkey,  a.Algorithm AS algorithm, 0 AS lic"
         " FROM Application a"
         " WHERE a.AppCode = %s",
         (appcode,),
     )
     app = cur.fetchone()
+    
     if app:
-        return app["code"]
+        signkey = crypto.load_privkey(app["signkey"].encode("ascii")) 
+        privkey = crypto.load_privkey(app["privkey"].encode("ascii")) 
+        lickey = signkey.public_key()
+        pubkey = privkey.public_key()
+        # return crypto.export_pubkey(lickey) 
+        return render_template("detail.html", lickey=crypto.export_pubkey(lickey),pubkey=crypto.export_pubkey(pubkey))
 
     return "Not found", 404

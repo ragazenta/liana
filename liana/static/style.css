@@ -102,6 +102,26 @@ html {
     margin-top: -5px;
 }
 
+.con-luar-detail{
+    width: 100%;
+}
+
+.con-luar-detail > .button-back{
+    margin: 0;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.content > .con-luar-detail > .con-detail{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+}
+
 @media (max-width: 800px) {
     .content > .form-1 > .con-1{
         flex-direction: column;

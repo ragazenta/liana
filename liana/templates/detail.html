@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h1>{% block title %}Detail{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+<div class="con-luar-detail">
+    <div class="con-detail mt-5">
+        <div class="signkey text-center">
+            <label class="form-label" for="createdby">Lickey</label>
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here"
+                    style="height: 100px">{{ lickey }}</textarea>
+                <label for="floatingTextarea2">Lickey</label>
+            </div>
+        </div>
+        <div class="privkey text-center">
+            <label class="form-label" for="lickey">Pubkey</label>
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here"
+                    style="height: 100px">{{ pubkey }}</textarea>
+                <label for="floatingTextarea2">Pubkey</label>
+            </div>
+        </div>
+    </div>
+    <div class="button-back">
+        <a type="sumbit" class="btn btn-success mb-4" href="{{ url_for('app.index') }}">back</a>
+    </div>
+</div>
+
+
+{% endblock %}
