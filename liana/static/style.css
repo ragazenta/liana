@@ -104,6 +104,7 @@ html {
 
 .con-luar-detail{
     width: 100%;
+    padding-top: 20px;
 }
 
 .con-luar-detail > .button-back{
@@ -116,10 +117,8 @@ html {
 }
 
 .content > .con-luar-detail > .con-detail{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 4rem;
+    width: 70%;
+    margin: auto;
 }
 
 @media (max-width: 800px) {
