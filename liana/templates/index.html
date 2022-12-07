@@ -8,8 +8,11 @@
 {% endblock %}
 
 {% block content %}
-<section class="table-content">
-	<a type="sumbit" class="btn btn-success mb-4" href="{{ url_for('app.create') }}">New</a>
+<div class="col-md-12 text-center">
+	<a type="sumbit" class="buttonnew btn btn-success mb-4" href="{{ url_for('app.create') }}">New</a>
+</div>
+<section class="table-content table-responsive">
+	
 	<table class="table text-center">
 		<thead>
 		  <tr class="table-primary">

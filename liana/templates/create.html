@@ -6,33 +6,33 @@
 
 {% block content %}
 
-<form class="form-1" method="post">
-    <div class="con-1">
-        <div class="kolom-1">
-            <div class="Application">
-                <label class="form-label" for="appcode">Application</label>
+<div class="container">
+    <form method="post">
+        <div class="form1">
+            <div class="input">
+                <label class="" for="appcode">Application</label>
                 <input class="form-control" name="appcode" id="appcode"
                     value="{{ request.form['code'] }}" required>
             </div>
-            <div class="CreatedBy">
-                <label class="form-label" for="createdby">CreatedBy</label>
-                <input class="form-control" name="createdby" id="createdby"
-                    value="{{ request.form['createdBy'] }}">
+            <div class="input">
+                <label class="" for="algorithm">Secret Algorithm</label>
+                <select class="btn btn-primary dropdown-toggle" name="algorithm" id="algorithm"
+                    value="{{ request.form['algorithm'] }}">
+                    <option>Select</option>
+                    <option>EC256</option>
+                    <option>Ed25519</option>
+                </select>
+            </div>
+            <div class="input">
+                    <label class="" for="createdby">CreatedBy</label>
+                    <input class="form-control" name="createdby" id="createdby"
+                        value="{{ request.form['createdBy'] }}">
             </div>
         </div>
-        <div class="Algorithm">
-            <label class="form-label" for="algorithm">Secret Algorithm</label>
-            <select class="btn btn-primary dropdown-toggle" name="algorithm" id="algorithm"
-                value="{{ request.form['algorithm'] }}">
-                <option>Select</option>
-                <option>EC256</option>
-                <option>Ed25519</option>
-            </select>
+        <div class="con-button">
+            <input class="button-save btn btn-success" type="submit" value="Save">
         </div>
-    </div>
-    <div class="con-button">
-        <input class="button-save btn btn-success" type="submit" value="Save">
-    </div>
-</form>
+    </form>
+</div>
 
 {% endblock %}

@@ -1,29 +1,64 @@
 {% extends 'base.html' %}
 
 {% block header %}
-    <h1>{% block title %}Update{% endblock %}</h1>    
+<h1>{% block title %}Update{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
 
-<form class="form-2" method="post">
+<div class="container">
+    <form method="post">
+        <div class="form1">
+            <div class="input">
+                <label class="form-label" for="createdby">CreatedBy</label>
+                <input class="form-control" name="createdby" id="createdby"
+                    value="{{ request.form['createdby'] or a['createdby'] }}">
+            </div>
+            <div class="input">
+                <label class="form-label" for="algorithm">Secret Algorithm</label>
+                <select class="btn btn-primary dropdown-toggle" name="algorithm" id="algorithm"
+                    value="{{ request.form['algorithm'] or a['algorithm'] }}">
+                    <option></option>
+                    {% if a['algorithm'] == "EC256"%}
+                    <option selected>EC256</option>
+                    {% else %}
+                    <option>EC256</option>
+                    {% endif %}
+
+                    {% if a['algorithm'] == "Ed25519"%}
+                    <option selected>Ed25519</option>
+                    {% else %}
+                    <option>Ed25519</option>
+                    {% endif %}
+                </select>
+            </div>
+        </div>
+        <div class="con-button">
+            <input class="button-save btn btn-success" type="submit" value="Save">
+        </div>
+    </form>
+</div>
+
+<!-- <form class="form-2" method="post">
     <div class="con-2">
         <div class="kolom-2">
             <div class="CreatedBy">
                 <label class="form-label" for="createdby">CreatedBy</label>
-                <input class="form-control" name="createdby" id="createdby" value="{{ request.form['createdby'] or a['createdby'] }}">
+                <input class="form-control" name="createdby" id="createdby"
+                    value="{{ request.form['createdby'] or a['createdby'] }}">
             </div>
         </div>
         <div class="Algorithm">
             <label class="form-label" for="algorithm">Secret Algorithm</label>
-            <select class="btn btn-primary dropdown-toggle" name="algorithm" id="algorithm" value="{{ request.form['algorithm'] or a['algorithm'] }}">
+            <select class="btn btn-primary dropdown-toggle" name="algorithm" id="algorithm"
+                value="{{ request.form['algorithm'] or a['algorithm'] }}">
                 <option></option>
                 {% if a['algorithm'] == "EC256"%}
                 <option selected>EC256</option>
                 {% else %}
                 <option>EC256</option>
                 {% endif %}
-        
+
                 {% if a['algorithm'] == "Ed25519"%}
                 <option selected>Ed25519</option>
                 {% else %}
@@ -35,7 +70,7 @@
     <div class="con-button">
         <input class="button-save btn btn-success" type="submit" value="Save">
     </div>
-</form>
+</form> -->
 
 {% endblock %}
 
