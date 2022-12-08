@@ -92,21 +92,24 @@ form > .form1 > .input{
 .con-luar-detail {
     width: 100%;
     padding-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.con-luar-detail>.button-back {
-    margin: 0;
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
+/* .con-luar-detail>.button-back { */
+    /* margin: 0; */
+    /* position: absolute; */
+    /* top: 20%; */
+    /* left: 50%; */
+    /* -ms-transform: translate(-50%, -50%); */
+    /* transform: translate(-50%, -50%); */
+/* } */
 
-.content>.con-luar-detail>.con-detail {
+/* .content>.con-luar-detail>.con-detail {
     width: 70%;
     margin: auto;
-}
+} */
 
 @media (max-width: 584px) {
     .container{

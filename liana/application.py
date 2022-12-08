@@ -166,13 +166,17 @@ def get_app(appcode):
         (appcode,),
     )
     app = cur.fetchone()
-    
+
     if app:
-        signkey = crypto.load_privkey(app["signkey"].encode("ascii")) 
-        privkey = crypto.load_privkey(app["privkey"].encode("ascii")) 
+        signkey = crypto.load_privkey(app["signkey"].encode("ascii"))
+        privkey = crypto.load_privkey(app["privkey"].encode("ascii"))
         lickey = signkey.public_key()
         pubkey = privkey.public_key()
-        # return crypto.export_pubkey(lickey) 
-        return render_template("detail.html", lickey=crypto.export_pubkey(lickey),pubkey=crypto.export_pubkey(pubkey))
+        # return crypto.export_pubkey(lickey)
+        return render_template(
+            "detail.html",
+            lickey=crypto.export_pubkey(lickey),
+            pubkey=crypto.export_pubkey(pubkey),
+        )
 
     return "Not found", 404

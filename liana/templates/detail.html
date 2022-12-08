@@ -7,25 +7,62 @@
 {% block content %}
 
 <div class="con-luar-detail">
-    <div class="con-detail mt-5">
-        <div class="signkey text-center">
-            <label class="form-label" for="createdby">License Key</label>
-            <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here"
-                    style="height: 100px">{{ lickey }}</textarea>
+    <div class="button-back bg-light border border-2 rounded" style="width: 70%;">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">KEY</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">LICENSE</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">ENCRYPT & DECRYPT</button>
+            </li>
+            <li class="nav-item mt-1 mb-1" role="presentation">
+                <a type="sumbit" class="btn btn-success"
+                href="{{ url_for('app.index') }}">back</a>
+            </li>
+        </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">.
+                <div class="signkey text-center">
+                    <label class="form-label" for="createdby">License Key</label>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here"
+                            style="height: 100px">{{ lickey }}</textarea>
+                    </div>
+                </div>
+                <div class="privkey text-center">
+                    <label class="form-label" for="lickey">Public Key</label>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here"
+                            style="height: 100px">{{ pubkey }}</textarea>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="privkey text-center">
-            <label class="form-label" for="lickey">Public Key</label>
-            <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here"
-                    style="height: 100px">{{ pubkey }}</textarea>
-            </div>
-        </div>
+            <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">...</div>
+            <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div>
+            <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
+          </div>
+        <!-- <ul class="nav justify-content-center gap-2 mt-3">
+            <li class="nav-item">
+                <a class="btn btn-primary" aria-current="page" href="#">KEY</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-primary" href="#">LICENSE</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-primary" href="#">ENCRYPT & DECRYPT</a>
+            </li>
+            <li class="nav-item">
+                <a type="sumbit" class="btn btn-success mb-4"
+                    href="{{ url_for('app.index') }}">back</a>
+            </li>
+        </ul> -->
     </div>
-    <div class="button-back">
-        <a type="sumbit" class="btn btn-success mb-4" href="{{ url_for('app.index') }}">back</a>
-    </div>
+    <!-- <div class="con-detail mt-5">
+        
+    </div> -->
 </div>
 
 
