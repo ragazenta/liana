@@ -111,6 +111,36 @@ form > .form1 > .input{
     margin: auto;
 } */
 
+.modal-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.btn-lic{
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+.enc{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.payload{
+    width: 400px;
+}
+
+.license{
+    width: 400px;
+}
+
 @media (max-width: 584px) {
     .container{
         max-width: 100%;
