@@ -175,8 +175,8 @@ def get_app(appcode):
         # return crypto.export_pubkey(lickey)
         return render_template(
             "detail.html",
-            lickey=crypto.export_pubkey(lickey),
-            pubkey=crypto.export_pubkey(pubkey),
+            lickey=crypto.export_pubkey(lickey).decode("ascii"),
+            pubkey=crypto.export_pubkey(pubkey).decode("ascii"),
         )
 
     return "Not found", 404
