@@ -97,20 +97,6 @@ form > .form1 > .input{
     justify-content: center;
 }
 
-/* .con-luar-detail>.button-back { */
-    /* margin: 0; */
-    /* position: absolute; */
-    /* top: 20%; */
-    /* left: 50%; */
-    /* -ms-transform: translate(-50%, -50%); */
-    /* transform: translate(-50%, -50%); */
-/* } */
-
-/* .content>.con-luar-detail>.con-detail {
-    width: 70%;
-    margin: auto;
-} */
-
 .modal-body{
     display: flex;
     justify-content: center;
@@ -150,12 +136,4 @@ form > .form1 > .input{
         margin-bottom: 15px;
         width: 100%;
     }
-
-    /* .con-enc{
-        max-width: 100%;
-    } */
-
-    /* .enc > .dec{
-        width: 100%;
-    } */
 }
