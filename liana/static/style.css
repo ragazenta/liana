@@ -127,6 +127,42 @@ form > .form1 > .input{
     width: 400px;
 }
 
+.decrypted{
+    width: 100%;
+}
+
+/* .icon{
+    width: 30%;
+} */
+
+.encrypted{
+    width: 100%;
+}
+
+.bi-arrow-right-short{
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.bi-arrow-left-short{
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.bi-arrow-down-short{
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.bi-trash3{
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.bi-plus-circle{
+    font-size: 20px
+}
+
 @media (max-width: 584px) {
     .container{
         max-width: 100%;

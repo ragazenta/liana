@@ -7,7 +7,7 @@
 {% block content %}
 
 <div class="modal fade" tabindex="-1" id="license-modal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -15,7 +15,7 @@
             <div class="modal-body">
                 <div class="payload">
                     <label class="form-label" for="createdby">Payload</label>
-                    <div class="form-floating">
+                    <div class="form">
                         <textarea class="form-control" placeholder="Leave a comment here"
                             style="height: 120px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, aspernatur molestiae. Nemo non sit qui aliquid voluptatem, neque nam placeat.</textarea>
                     </div>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="license">
                     <label class="form-label" for="createdby">License</label>
-                    <div class="form-floating">
+                    <div class="form">
                         <textarea class="form-control" placeholder="Leave a comment here" readonly
                             style="height: 120px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, aspernatur molestiae. Nemo non sit qui aliquid voluptatem, neque nam placeat.</textarea>
                     </div>
@@ -70,14 +70,14 @@
                 tabindex="0">
                 <div class="signkey text-center">
                     <label class="form-label" for="createdby">License Key</label>
-                    <div class="form-floating">
+                    <div class="form">
                         <textarea class="form-control" placeholder="Leave a comment here"
                             style="height: 100px">{{ lickey }}</textarea>
                     </div>
                 </div>
                 <div class="privkey text-center mt-3">
                     <label class="form-label" for="lickey">Public Key</label>
-                    <div class="form-floating">
+                    <div class="form">
                         <textarea class="form-control" placeholder="Leave a comment here"
                             style="height: 100px">{{ pubkey }}</textarea>
                     </div>
@@ -85,12 +85,7 @@
             </div>
             <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                 <button type="button " class="btn btn-primary btn-lic" data-bs-toggle="modal"
-                    data-bs-target="#license-modal"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
-                        fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                        <path
-                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                    </svg>
+                    data-bs-target="#license-modal"><i class="bi bi-plus-circle"></i>
                 </button>
                 <section class="table-responsive">
                     <table class="table text-center">
@@ -104,18 +99,8 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <button type="button" class="btn btn-primary"><svg
-                                            xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-arrow-down me-2" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
-                                        </svg>DOWNLOAD</button>
-                                    <button type="button" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg"
-                                            width="25" height="25" fill="currentColor" class="bi bi-x me-2"
-                                            viewBox="0 0 16 16">
-                                            <path
-                                                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                                        </svg>DELETE</button>
+                                    <button type="button" class="btn btn-primary"><i class="bi bi-arrow-down-short"></i>DOWNLOAD</button>
+                                    <button type="button" class="btn btn-danger"><i class="bi bi-trash3"></i>DELETE</button>
                                 </td>
                                 <td>Otto</td>
                                 <td>@mdo</td>
@@ -129,36 +114,28 @@
                 <div class="enc">
                     <div class="decrypted">
                         <label class="form-label" for="createdby">DECRYPTED</label>
-                        <div class="form-floating">
+                        <div class="form">
                             <textarea class="form-control" placeholder="Leave a comment here"
-                                style="height: 120px; width: 100%;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, aspernatur molestiae. Nemo non sit qui aliquid voluptatem, neque nam placeat.</textarea>
+                                style="height: 150px; width: 100%;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, aspernatur molestiae. Nemo non sit qui aliquid voluptatem, neque nam placeat.</textarea>
                         </div>
                     </div>
                     <div class="icon">
                         <div class="">
                             <button type="button" class="btn btn-primary">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                                    class="bi bi-arrow-right-short text-white rounded-2" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
-                                </svg>ENCRYPTED
+                                <i class="bi bi-arrow-right-short "></i>ENCRYPT
                             </button>
                         </div>
                         <div class="mt-2">
                             <button type="button" class="btn btn-success">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                                    class="bi bi-arrow-left-short" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z" />
-                                </svg>DECRYPTED
+                                <i class="bi bi-arrow-left-short"></i>DECRYPT
                             </button>
                         </div>
                     </div>
                     <div class="encrypted">
                         <label class="form-label" for="createdby">ENCRYPTED</label>
-                        <div class="form-floating">
+                        <div class="form">
                             <textarea class="form-control" placeholder="Leave a comment here" readonly
-                                style="height: 120px; width: 100%;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, aspernatur molestiae. Nemo non sit qui aliquid voluptatem, neque nam placeat.</textarea>
+                                style="height: 150px; width: 100%;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, aspernatur molestiae. Nemo non sit qui aliquid voluptatem, neque nam placeat.</textarea>
                         </div>
                     </div>
                 </div>
