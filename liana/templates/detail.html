@@ -17,9 +17,9 @@
                     <label class="form-label" for="createdby">Payload (JSON)</label>
                     <div class="form">
                         <div id="payload" class="form-control" style="height: 400px;">{
-    "hello": "World!" 
-}
-</div>
+                            "hello": "World!"
+                            }
+                        </div>
                     </div>
                 </div>
                 <div class="icon">
@@ -30,7 +30,8 @@
                 <div class="license">
                     <label class="form-label" for="createdby">License</label>
                     <div class="form">
-                        <textarea id="license" class="form-control" placeholder="License will be generated here" style="height: 400px;" readonly></textarea>
+                        <textarea id="license" class="form-control" placeholder="License will be generated here"
+                            style="height: 400px;" readonly></textarea>
                     </div>
                 </div>
             </div>
@@ -97,8 +98,11 @@
                             {% for l in app["lics"] %}
                             <tr>
                                 <td>
-                                    <a href="data:text/plain;base64,{{ l['content'] | b64encode }}" class="btn btn-primary" download="license.lic"><i class="bi bi-download"></i> DOWNLOAD</a>
-                                    <button type="button" class="btn btn-danger"><i class="bi bi-trash3"></i> DELETE</button>
+                                    <a href="data:text/plain;base64,{{ l['content'] | b64encode }}"
+                                        class="btn btn-primary" download="license.lic"><i class="bi bi-download"></i>
+                                        DOWNLOAD</a>
+                                    <button type="button" class="btn btn-danger"><i class="bi bi-trash3"></i>
+                                        DELETE</button>
                                 </td>
                                 <td>{{ l["createdat"] }}</td>
                                 <td>{{ l["createdby"] }}</td>
@@ -114,8 +118,8 @@
                     <div class="decrypted">
                         <label class="form-label" for="createdby">DECRYPTED</label>
                         <div class="form">
-                            <textarea id="decrypted" class="form-control" placeholder="Leave a comment here"
-                                style="height: 150px; width: 100%;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, aspernatur molestiae. Nemo non sit qui aliquid voluptatem, neque nam placeat.</textarea>
+                            <textarea id="decrypted" class="form-control" placeholder="Leave a comment here" 
+                                style="height: 150px; width: 100%;"></textarea>
                         </div>
                     </div>
                     <div class="icon">
@@ -125,7 +129,7 @@
                             </button>
                         </div>
                         <div class="mt-2">
-                            <button id="decript" type="button" class="btn btn-success">
+                            <button id="decrypt" type="button" class="btn btn-success">
                                 <i class="bi-2 bi-arrow-left"></i>DECRYPT
                             </button>
                         </div>
@@ -170,10 +174,11 @@
         const formData = new FormData();
         formData.append("payload", payload);
 
-        const response = await fetch("{{ url_for('app.generate_lic', appcode=app['code']) }}", {
-            method: "POST",
-            body: formData,
-        });
+        const response = await fetch(
+            "{{ url_for('app.generate_lic', appcode=app['code']) }}", {
+                method: "POST",
+                body: formData,
+            });
 
         if (response.ok) {
             const data = await response.json();
@@ -189,10 +194,11 @@
         formData.append("content", content);
         formData.append("createdby", "fulan@binfulan.com");
 
-        const response = await fetch("{{ url_for('app.save_lic', appcode=app['code']) }}", {
-            method: "POST",
-            body: formData,
-        });
+        const response = await fetch(
+            "{{ url_for('app.save_lic', appcode=app['code']) }}", {
+                method: "POST",
+                body: formData,
+            });
 
         if (response.ok) {
             const data = await response.json();
@@ -214,14 +220,34 @@
         const formData = new FormData();
         formData.append("content", content);
 
-        const response = await fetch("{{ url_for('app.encrypt', appcode=app['code']) }}", {
-            method: "POST",
-            body: formData,
-        });
+        const response = await fetch(
+            "{{ url_for('app.encrypt', appcode=app['code']) }}", {
+                method: "POST",
+                body: formData,
+            });
 
         if (response.ok) {
             const data = await response.json();
             encrypted.value = data.result;
+        } else {
+            alert(`${response.status} ${response.statusText}\r\n\r\r\n${await response.text()}`);
+        }
+    });
+
+    decryptBtn.addEventListener("click", async e => {
+        const content = encrypted.value;
+        const formData = new FormData();
+        formData.append("content", content);
+
+        const response = await fetch(
+            "{{ url_for('app.decrypt', appcode=app['code']) }}", {
+                method: "POST",
+                body: formData,
+            });
+
+        if (response.ok) {
+            const data = await response.json();
+            decrypted.value = data.result;
         } else {
             alert(`${response.status} ${response.statusText}\r\n\r\r\n${await response.text()}`);
         }

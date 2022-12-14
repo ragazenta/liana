@@ -92,22 +92,26 @@ def update(appcode):
     if request.method == "POST":
         algorithm = request.form["algorithm"]
         createdby = request.form["createdby"]
+        signaturekey = request.form["signkey"]
+        privatekey = request.form["privkey"]
         error = None
 
-        if algorithm == "EC256":
-            signaturekey = crypto.export_privkey(crypto.generate_ec256_privkey())
-            privatekey = crypto.export_privkey(crypto.generate_ec256_privkey())
+        # if algorithm == "EC256":
+        #     signaturekey = crypto.export_privkey(crypto.generate_ec256_privkey())
+        #     privatekey = crypto.export_privkey(crypto.generate_ec256_privkey())
 
-        elif algorithm == "Ed25519":
-            signaturekey = crypto.export_privkey(crypto.generate_ed25519_privkey())
-            privatekey = crypto.export_privkey(crypto.generate_x25519_privkey())
-
-        else:
-            error = "invalid Algorithm"
+        # elif algorithm == "Ed25519":
+        #     signaturekey = crypto.export_privkey(crypto.generate_ed25519_privkey())
+        #     privatekey = crypto.export_privkey(crypto.generate_x25519_privkey())
+        
+        # else:
+        #     error = "invalid Algorithm"
 
         if error is not None:
             flash(error)
         else:
+            crypto.load_privkey(signaturekey.encode("ascii"))
+            crypto.load_privkey(privatekey.encode("ascii"))
             db = get_db()
             cur = db.cursor()
             cur.execute(
@@ -117,6 +121,7 @@ def update(appcode):
             )
             db.commit()
             return redirect(url_for("index"))
+            
 
     return render_template("update.html", a=app)
 
@@ -248,6 +253,47 @@ def encrypt(appcode):
 
         elif app["algorithm"] == "Ed25519":
             result = crypto.encrypt_x25519(content, pubkey)
+
+        else:
+            result = b"invalid algorithm"
+
+        return jsonify(
+            {
+                "result": result.decode("ascii"),
+            }
+        )
+
+    return (
+        jsonify(
+            {
+                "message": f"Application ({appcode}) could not be found",
+            }
+        ),
+        404,
+    )
+
+@bp.route("/<appcode>/decrypt", methods=("POST",))
+def decrypt(appcode):
+    db = get_db()
+    cur = db.cursor(dictionary=True)
+    cur.execute(
+        "SELECT a.AppCode AS code, a.SignatureKey AS signkey, a.PrivateKey AS privkey,  a.Algorithm AS algorithm, 0 AS lic"
+        " FROM Application a"
+        " WHERE a.AppCode = %s",
+        (appcode,),
+    )
+    app = cur.fetchone()
+
+    if app:
+        content = request.form["content"].encode("ascii")
+        privkey = crypto.load_privkey(app["privkey"].encode("ascii"))
+        # pubkey = privkey.public_key()
+
+        if app["algorithm"] == "EC256":
+            result = crypto.decrypt_ec256(content, privkey)
+
+        elif app["algorithm"] == "Ed25519":
+            result = crypto.decrypt_x25519(content, privkey)
 
         else:
             result = b"invalid algorithm"
