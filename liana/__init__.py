@@ -1,4 +1,5 @@
 import os
+import base64
 
 from flask import Flask
 
@@ -27,6 +28,10 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
+
+    @app.template_filter("b64encode")
+    def b64encode(s):
+        return base64.b64encode(s.encode("ascii")).decode("ascii")
 
     from . import db
 
