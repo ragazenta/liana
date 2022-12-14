@@ -14,28 +14,29 @@
             </div>
             <div class="modal-body">
                 <div class="payload">
-                    <label class="form-label" for="createdby">Payload</label>
+                    <label class="form-label" for="createdby">Payload (JSON)</label>
                     <div class="form">
-                        <textarea class="form-control" placeholder="Leave a comment here"
-                            style="height: 120px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, aspernatur molestiae. Nemo non sit qui aliquid voluptatem, neque nam placeat.</textarea>
+                        <div id="payload" class="form-control" style="height: 400px;">{
+    "hello": "World!" 
+}
+</div>
                     </div>
                 </div>
                 <div class="icon">
-                    <button type="button" class="btn btn-primary">
-                        <i class="bi bi-arrow-right-short "></i>
+                    <button id="generate" type="button" class="btn btn-primary">
+                        <i class="bi bi-arrow-right"></i>
                     </button>
                 </div>
                 <div class="license">
                     <label class="form-label" for="createdby">License</label>
                     <div class="form">
-                        <textarea class="form-control" placeholder="Leave a comment here" readonly
-                            style="height: 120px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, aspernatur molestiae. Nemo non sit qui aliquid voluptatem, neque nam placeat.</textarea>
+                        <textarea id="license" class="form-control" placeholder="License will be generated here" style="height: 400px;" readonly></textarea>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button id="save" type="button" class="btn btn-primary">Save</button>
             </div>
         </div>
     </div>
@@ -64,24 +65,24 @@
         <div class="tab-content mb-3 mt-3" id="myTabContent">
             <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
                 tabindex="0">
-                <div class="signkey text-center">
+                <div class="lickey text-center">
                     <label class="form-label" for="createdby">License Key</label>
                     <div class="form">
                         <textarea class="form-control" placeholder="Leave a comment here"
-                            style="height: 100px">{{ lickey }}</textarea>
+                            style="height: 120px">{{ lickey }}</textarea>
                     </div>
                 </div>
-                <div class="privkey text-center mt-3">
+                <div class="pubkey text-center mt-3">
                     <label class="form-label" for="lickey">Public Key</label>
                     <div class="form">
                         <textarea class="form-control" placeholder="Leave a comment here"
-                            style="height: 100px">{{ pubkey }}</textarea>
+                            style="height: 120px">{{ pubkey }}</textarea>
                     </div>
                 </div>
             </div>
             <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                 <button type="button " class="btn btn-primary btn-lic" data-bs-toggle="modal"
-                    data-bs-target="#license-modal"><i class="bi bi-plus-circle"></i>
+                    data-bs-target="#license-modal"><i class="bi bi-plus-circle"></i> NEW
                 </button>
                 <section class="table-responsive">
                     <table class="table text-center">
@@ -93,14 +94,16 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for l in app["lics"] %}
                             <tr>
                                 <td>
-                                    <button type="button" class="btn btn-primary"><i class="bi bi-arrow-down-short"></i>DOWNLOAD</button>
-                                    <button type="button" class="btn btn-danger"><i class="bi bi-trash3"></i>DELETE</button>
+                                    <a href="data:text/plain;base64,{{ l['content'] | b64encode }}" class="btn btn-primary" download="license.lic"><i class="bi bi-download"></i> DOWNLOAD</a>
+                                    <button type="button" class="btn btn-danger"><i class="bi bi-trash3"></i> DELETE</button>
                                 </td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
+                                <td>{{ l["createdat"] }}</td>
+                                <td>{{ l["createdby"] }}</td>
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </section>
@@ -111,26 +114,26 @@
                     <div class="decrypted">
                         <label class="form-label" for="createdby">DECRYPTED</label>
                         <div class="form">
-                            <textarea class="form-control" placeholder="Leave a comment here"
+                            <textarea id="decrypted" class="form-control" placeholder="Leave a comment here"
                                 style="height: 150px; width: 100%;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, aspernatur molestiae. Nemo non sit qui aliquid voluptatem, neque nam placeat.</textarea>
                         </div>
                     </div>
                     <div class="icon">
                         <div class="">
-                            <button type="button" class="btn btn-primary">
-                                <i class="bi-2 bi-arrow-right-short "></i>ENCRYPT
+                            <button id="encrypt" type="button" class="btn btn-primary">
+                                <i class="bi-2 bi-arrow-right"></i>ENCRYPT
                             </button>
                         </div>
                         <div class="mt-2">
-                            <button type="button" class="btn btn-success">
-                                <i class="bi-2 bi-arrow-left-short"></i>DECRYPT
+                            <button id="decript" type="button" class="btn btn-success">
+                                <i class="bi-2 bi-arrow-left"></i>DECRYPT
                             </button>
                         </div>
                     </div>
                     <div class="encrypted">
                         <label class="form-label" for="createdby">ENCRYPTED</label>
                         <div class="form">
-                            <textarea class="form-control" placeholder="Leave a comment here" readonly
+                            <textarea id="encrypted" class="form-control" placeholder="Leave a comment here" readonly
                                 style="height: 150px; width: 100%;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, aspernatur molestiae. Nemo non sit qui aliquid voluptatem, neque nam placeat.</textarea>
                         </div>
                     </div>
@@ -141,6 +144,91 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/ace-builds@1.14.0/src-noconflict/ace.min.js"></script>
+<script>
+    ace.config.set("basePath", "https://cdn.jsdelivr.net/npm/ace-builds@1.14.0/src-noconflict/");
+
+    const generateBtn = document.getElementById("generate");
+    const saveBtn = document.getElementById("save");
+    const payloadEditor = ace.edit("payload");
+    payloadEditor.session.setMode("ace/mode/json");
+    payloadEditor.setOptions({
+        fontFamily: "Fira Code",
+        fontSize: "0.875rem",
+    });
+    const licenseOutput = document.getElementById("license");
+    generateBtn.addEventListener("click", async e => {
+        const payload = payloadEditor.getValue();
+        try {
+            JSON.parse(payload);
+        } catch {
+            alert("Invalid JSON");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("payload", payload);
+
+        const response = await fetch("{{ url_for('app.generate_lic', appcode=app['code']) }}", {
+            method: "POST",
+            body: formData,
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            licenseOutput.value = data.license;
+        } else {
+            alert(`${response.status} ${response.statusText}\r\n\r\r\n${await response.text()}`);
+        }
+    });
+
+    saveBtn.addEventListener("click", async e => {
+        const content = licenseOutput.value;
+        const formData = new FormData();
+        formData.append("content", content);
+        formData.append("createdby", "fulan@binfulan.com");
+
+        const response = await fetch("{{ url_for('app.save_lic', appcode=app['code']) }}", {
+            method: "POST",
+            body: formData,
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const licenseModal = bootstrap.Modal.getInstance(document.getElementById("license-modal"));
+            licenseModal.hide();
+        } else {
+            alert(`${response.status} ${response.statusText}\r\n\r\r\n${await response.text()}`);
+        }
+    });
+</script>
+<script>
+    const encryptBtn = document.getElementById("encrypt");
+    const decryptBtn = document.getElementById("decrypt");
+    const encrypted = document.getElementById("encrypted");
+    const decrypted = document.getElementById("decrypted");
+
+    encryptBtn.addEventListener("click", async e => {
+        const content = decrypted.value;
+        const formData = new FormData();
+        formData.append("content", content);
+
+        const response = await fetch("{{ url_for('app.encrypt', appcode=app['code']) }}", {
+            method: "POST",
+            body: formData,
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            encrypted.value = data.result;
+        } else {
+            alert(`${response.status} ${response.statusText}\r\n\r\r\n${await response.text()}`);
+        }
+    });
+
+    // TODO: decrypt
+</script>
 
 
 {% endblock %}

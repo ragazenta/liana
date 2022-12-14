@@ -120,46 +120,30 @@ form > .form1 > .input{
 }
 
 .payload{
-    width: 400px;
+    width: 500px;
+}
+
+.payload .ace-editor {
+    height: 400px;
 }
 
 .license{
-    width: 400px;
+    width: 700px;
+}
+
+.license textarea,
+.lickey textarea,
+.pubkey textarea {
+    font-family: "Fira Code", monospace;
+    font-size: 0.875rem;
 }
 
 .decrypted{
     width: 100%;
 }
 
-/* .icon{
-    width: 30%;
-} */
-
 .encrypted{
     width: 100%;
-}
-
-.bi-arrow-right-short{
-    font-size: 20px;
-}
-
-.bi-2{
-    font-size: 20px;
-    margin-right: 10px;
-}
-
-.bi-arrow-down-short{
-    font-size: 20px;
-    margin-right: 10px;
-}
-
-.bi-trash3{
-    font-size: 20px;
-    margin-right: 10px;
-}
-
-.bi-plus-circle{
-    font-size: 20px
 }
 
 @media (max-width: 584px) {
