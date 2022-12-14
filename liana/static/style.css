@@ -1,3 +1,174 @@
 html {
     font-family: serif;
 }
+
+.content {
+    width: 100%;
+}
+
+.button-index {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.container-nav {
+    margin: auto;
+}
+
+.container-nav span {
+    font-size: 25px;
+    letter-spacing: 2px;
+}
+
+.table-content {
+    width: 80%;
+    margin: auto;
+}
+
+.table-content>.table {
+    box-shadow: 4px 5px 5px grey;
+}
+
+.content>header>h1 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.container{
+    max-width: 500px;
+    width: 100%;
+    padding: 25px 30px;
+    margin: auto;
+    border: solid 1px black;
+    border-radius: 15px;
+
+}
+
+.container > form > .form1{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 15px 20px 8px 0;
+}
+
+form > .form1 > .input{
+    margin-bottom: 15px;
+    width: calc(100% / 2 - 20px);
+}
+
+.form1 > .input > label{
+    display: block;
+}
+
+.form1 > .input > input{
+    height: 45px;
+    width: 100%;
+}
+
+.form-1>.con-button {
+    margin: auto;
+    width: 10%;
+}
+
+.form-1>.button-save {
+    margin: auto;
+}
+
+.form-2>.con-button {
+    margin: auto;
+    width: 10%;
+}
+
+.form-2>.button-save {
+    margin: auto;
+}
+
+.form-2>.con-2>.Algorithm {
+    margin-top: -5px;
+}
+
+.con-luar-detail {
+    width: 100%;
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.btn-lic{
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+.enc{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.payload{
+    width: 400px;
+}
+
+.license{
+    width: 400px;
+}
+
+.decrypted{
+    width: 100%;
+}
+
+/* .icon{
+    width: 30%;
+} */
+
+.encrypted{
+    width: 100%;
+}
+
+.bi-arrow-right-short{
+    font-size: 20px;
+}
+
+.bi-2{
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.bi-arrow-down-short{
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.bi-trash3{
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.bi-plus-circle{
+    font-size: 20px
+}
+
+@media (max-width: 584px) {
+    .container{
+        max-width: 100%;
+    }
+
+    form > .form1 > .input{
+        margin-bottom: 15px;
+        width: 100%;
+    }
+}

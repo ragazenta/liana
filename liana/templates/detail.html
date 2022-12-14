@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h1>{% block title %}Detail{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+<div class="modal fade" tabindex="-1" id="license-modal">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="payload">
+                    <label class="form-label" for="createdby">Payload</label>
+                    <div class="form">
+                        <textarea class="form-control" placeholder="Leave a comment here"
+                            style="height: 120px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, aspernatur molestiae. Nemo non sit qui aliquid voluptatem, neque nam placeat.</textarea>
+                    </div>
+                </div>
+                <div class="icon">
+                    <button type="button" class="btn btn-primary">
+                        <i class="bi bi-arrow-right-short "></i>
+                    </button>
+                </div>
+                <div class="license">
+                    <label class="form-label" for="createdby">License</label>
+                    <div class="form">
+                        <textarea class="form-control" placeholder="Leave a comment here" readonly
+                            style="height: 120px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, aspernatur molestiae. Nemo non sit qui aliquid voluptatem, neque nam placeat.</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="con-luar-detail">
+    <div class="button-back" style="width: 70%;">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
+                    type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">KEY</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
+                    type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">LICENSE</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane"
+                    type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">ENCRYPT &
+                    DECRYPT</button>
+            </li>
+            <li class="nav-item mt-1 mb-1" role="presentation">
+                <a type="sumbit" class="btn btn-success" href="{{ url_for('app.index') }}">back</a>
+            </li>
+        </ul>
+        <div class="tab-content mb-3 mt-3" id="myTabContent">
+            <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+                tabindex="0">
+                <div class="signkey text-center">
+                    <label class="form-label" for="createdby">License Key</label>
+                    <div class="form">
+                        <textarea class="form-control" placeholder="Leave a comment here"
+                            style="height: 100px">{{ lickey }}</textarea>
+                    </div>
+                </div>
+                <div class="privkey text-center mt-3">
+                    <label class="form-label" for="lickey">Public Key</label>
+                    <div class="form">
+                        <textarea class="form-control" placeholder="Leave a comment here"
+                            style="height: 100px">{{ pubkey }}</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                <button type="button " class="btn btn-primary btn-lic" data-bs-toggle="modal"
+                    data-bs-target="#license-modal"><i class="bi bi-plus-circle"></i>
+                </button>
+                <section class="table-responsive">
+                    <table class="table text-center">
+                        <thead>
+                            <tr>
+                                <th scope="col">LICENSE</th>
+                                <th scope="col">CREATED AT</th>
+                                <th scope="col">CREATED BY</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <button type="button" class="btn btn-primary"><i class="bi bi-arrow-down-short"></i>DOWNLOAD</button>
+                                    <button type="button" class="btn btn-danger"><i class="bi bi-trash3"></i>DELETE</button>
+                                </td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+            <div class="tab-pane fade mt-3 mb-3" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab"
+                tabindex="0">
+                <div class="enc">
+                    <div class="decrypted">
+                        <label class="form-label" for="createdby">DECRYPTED</label>
+                        <div class="form">
+                            <textarea class="form-control" placeholder="Leave a comment here"
+                                style="height: 150px; width: 100%;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, aspernatur molestiae. Nemo non sit qui aliquid voluptatem, neque nam placeat.</textarea>
+                        </div>
+                    </div>
+                    <div class="icon">
+                        <div class="">
+                            <button type="button" class="btn btn-primary">
+                                <i class="bi-2 bi-arrow-right-short "></i>ENCRYPT
+                            </button>
+                        </div>
+                        <div class="mt-2">
+                            <button type="button" class="btn btn-success">
+                                <i class="bi-2 bi-arrow-left-short"></i>DECRYPT
+                            </button>
+                        </div>
+                    </div>
+                    <div class="encrypted">
+                        <label class="form-label" for="createdby">ENCRYPTED</label>
+                        <div class="form">
+                            <textarea class="form-control" placeholder="Leave a comment here" readonly
+                                style="height: 150px; width: 100%;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, aspernatur molestiae. Nemo non sit qui aliquid voluptatem, neque nam placeat.</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab"
+                tabindex="0">...</div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
