@@ -1,11 +1,10 @@
-{% extends "base.html" %}
+{% extends "detail.html" %}
 
 {% block header %}
 <h1>{% block title %}Detail{% endblock %}</h1>
 {% endblock %}
 
-{% block content %}
-
+{% block contentenc %}
 
 <!-- <div class="modal fade" tabindex="-1" id="license-modal">
     <div class="modal-dialog modal-xl">
@@ -44,7 +43,7 @@
     </div>
 </div> -->
 
-<div class="con-luar-detail">
+<!-- <div class="con-luar-detail">
     <div class="button-back" style="width: 70%;">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -52,7 +51,7 @@
                     type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">KEY</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
+                <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
                     type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">LICENSE</button>
             </li>
             <li class="nav-item" role="presentation">
@@ -63,17 +62,27 @@
             <li class="nav-item mt-1 mb-1" role="presentation">
                 <a type="sumbit" class="btn btn-success" href="{{ url_for('app.index') }}">back</a>
             </li>
-        </ul>
-        <div class="tab-content mb-3 mt-3" id="myTabContent">
-            <!-- <div class="tab-pane fade show" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
-            tabindex="0"> -->
-                {% block contentkey %}{% endblock %}
-
+        </ul> -->
+        <!-- <div class="tab-content mb-3 mt-3" id="myTabContent">
+            <div class="tab-pane fade" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+                tabindex="0"> -->
+                <!-- <div class="lickey text-center">
+                    <label class="form-label" for="createdby">License Key</label>
+                    <div class="form">
+                        <textarea class="form-control" placeholder="Leave a comment here"
+                            style="height: 120px">{{ lickey }}</textarea>
+                    </div>
+                </div>
+                <div class="pubkey text-center mt-3">
+                    <label class="form-label" for="lickey">Public Key</label>
+                    <div class="form">
+                        <textarea class="form-control" placeholder="Leave a comment here"
+                            style="height: 120px">{{ pubkey }}</textarea>
+                    </div>
+                </div> -->
             <!-- </div> -->
-            <!-- <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0"> -->
-                {% block contentlic %}{% endblock %}
-                {% block contentenc %}{% endblock %}
-                <!-- <button type="button " class="btn btn-primary btn-lic" data-bs-toggle="modal"
+            <!-- <div class="tab-pane fade show active" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                <button type="button " class="btn btn-primary btn-lic" data-bs-toggle="modal"
                     data-bs-target="#license-modal"><i class="bi bi-plus-circle"></i> NEW
                 </button>
                 <section class="table-responsive">
@@ -101,9 +110,9 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                </section> -->
-            <!-- </div> -->
-            <!-- <div class="tab-pane fade mt-3 mb-3" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab"
+                </section>
+            </div> -->
+            <div class="tab-pane fade show active mt-3 mb-3" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab"
                 tabindex="0">
                 <div class="enc">
                     <div class="decrypted">
@@ -135,118 +144,9 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab"
-                tabindex="0">...</div> -->
-        </div>
+                tabindex="0">...</div>
+        <!-- </div> -->
     </div>
 </div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/ace-builds@1.14.0/src-noconflict/ace.min.js"></script>
-<script>
-    ace.config.set("basePath", "https://cdn.jsdelivr.net/npm/ace-builds@1.14.0/src-noconflict/");
-
-    const generateBtn = document.getElementById("generate");
-    const saveBtn = document.getElementById("save");
-    const payloadEditor = ace.edit("payload");
-    payloadEditor.session.setMode("ace/mode/json");
-    payloadEditor.setOptions({
-        fontFamily: "Fira Code",
-        fontSize: "0.875rem",
-    });
-    const licenseOutput = document.getElementById("license");
-    generateBtn.addEventListener("click", async e => {
-        const payload = payloadEditor.getValue();
-        try {
-            JSON.parse(payload);
-        } catch {
-            alert("Invalid JSON");
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append("payload", payload);
-
-        const response = await fetch(
-            "{{ url_for('app.generate_lic', appcode=app['code']) }}", {
-                method: "POST",
-                body: formData,
-            });
-
-        if (response.ok) {
-            const data = await response.json();
-            licenseOutput.value = data.license;
-        } else {
-            alert(`${response.status} ${response.statusText}\r\n\r\r\n${await response.text()}`);
-        }
-    });
-
-    saveBtn.addEventListener("click", async e => {
-        const content = licenseOutput.value;
-        const formData = new FormData();
-        formData.append("content", content);
-        formData.append("createdby", "fulan@binfulan.com");
-
-        const response = await fetch(
-            "{{ url_for('app.save_lic', appcode=app['code']) }}", {
-                method: "POST",
-                body: formData,
-            });
-
-        if (response.ok) {
-            const data = await response.json();
-            const licenseModal = bootstrap.Modal.getInstance(document.getElementById("license-modal"));
-            licenseModal.hide();
-        } else {
-            alert(`${response.status} ${response.statusText}\r\n\r\r\n${await response.text()}`);
-        }
-    });
-</script>
-<script>
-    const encryptBtn = document.getElementById("encrypt");
-    const decryptBtn = document.getElementById("decrypt");
-    const encrypted = document.getElementById("encrypted");
-    const decrypted = document.getElementById("decrypted");
-
-    encryptBtn.addEventListener("click", async e => {
-        const content = decrypted.value;
-        const formData = new FormData();
-        formData.append("content", content);
-
-        const response = await fetch(
-            "{{ url_for('app.encrypt', appcode=app['code']) }}", {
-                method: "POST",
-                body: formData,
-            });
-
-        if (response.ok) {
-            const data = await response.json();
-            encrypted.value = data.result;
-        } else {
-            alert(`${response.status} ${response.statusText}\r\n\r\r\n${await response.text()}`);
-        }
-    });
-
-    decryptBtn.addEventListener("click", async e => {
-        const content = encrypted.value;
-        const formData = new FormData();
-        formData.append("content", content);
-
-        const response = await fetch(
-            "{{ url_for('app.decrypt', appcode=app['code']) }}", {
-                method: "POST",
-                body: formData,
-            });
-
-        if (response.ok) {
-            const data = await response.json();
-            decrypted.value = data.result;
-        } else {
-            alert(`${response.status} ${response.statusText}\r\n\r\r\n${await response.text()}`);
-        }
-    });
-
-    // TODO: decrypt
-</script>
-
 
 {% endblock %}

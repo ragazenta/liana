@@ -172,6 +172,113 @@ def get_app(appcode):
 
     return "Not found", 404
 
+@bp.route("/<appcode>/key")
+def key(appcode):
+    db = get_db()
+    cur = db.cursor(dictionary=True)
+    cur.execute(
+        "SELECT a.AppCode AS code, a.SignatureKey AS signkey, a.PrivateKey AS privkey, a.Algorithm AS algorithm, 0 AS lic"
+        " FROM Application a"
+        " WHERE a.AppCode = %s",
+        (appcode,),
+    )
+    app = cur.fetchone()
+
+    if app:
+        signkey = crypto.load_privkey(app["signkey"].encode("ascii"))
+        privkey = crypto.load_privkey(app["privkey"].encode("ascii"))
+        lickey = signkey.public_key()
+        pubkey = privkey.public_key()
+
+        cur.execute(
+            "SELECT l.CreatedDtm AS createdat, l.Content AS content, l.CreatedBy AS createdby"
+            " FROM License l"
+            " WHERE l.AppCode = %s"
+            " ORDER BY l.CreatedDtm DESC",
+            (appcode,),
+        )
+        app["lics"] = cur.fetchall()
+
+        return render_template(
+            "detail_key.html",
+            app=app,
+            lickey=crypto.export_pubkey(lickey).decode("ascii"),
+            pubkey=crypto.export_pubkey(pubkey).decode("ascii"),
+        )
+
+    return "Not found", 404
+
+@bp.route("/<appcode>/lic")
+def lic(appcode):
+    db = get_db()
+    cur = db.cursor(dictionary=True)
+    cur.execute(
+        "SELECT a.AppCode AS code, a.SignatureKey AS signkey, a.PrivateKey AS privkey, a.Algorithm AS algorithm, 0 AS lic"
+        " FROM Application a"
+        " WHERE a.AppCode = %s",
+        (appcode,),
+    )
+    app = cur.fetchone()
+
+    if app:
+        signkey = crypto.load_privkey(app["signkey"].encode("ascii"))
+        privkey = crypto.load_privkey(app["privkey"].encode("ascii"))
+        lickey = signkey.public_key()
+        pubkey = privkey.public_key()
+
+        cur.execute(
+            "SELECT l.CreatedDtm AS createdat, l.Content AS content, l.CreatedBy AS createdby"
+            " FROM License l"
+            " WHERE l.AppCode = %s"
+            " ORDER BY l.CreatedDtm DESC",
+            (appcode,),
+        )
+        app["lics"] = cur.fetchall()
+
+        return render_template(
+            "detail_lic.html",
+            app=app,
+            lickey=crypto.export_pubkey(lickey).decode("ascii"),
+            pubkey=crypto.export_pubkey(pubkey).decode("ascii"),
+        )
+
+    return "Not found", 404
+
+@bp.route("/<appcode>/end")
+def end(appcode):
+    db = get_db()
+    cur = db.cursor(dictionary=True)
+    cur.execute(
+        "SELECT a.AppCode AS code, a.SignatureKey AS signkey, a.PrivateKey AS privkey, a.Algorithm AS algorithm, 0 AS lic"
+        " FROM Application a"
+        " WHERE a.AppCode = %s",
+        (appcode,),
+    )
+    app = cur.fetchone()
+
+    if app:
+        signkey = crypto.load_privkey(app["signkey"].encode("ascii"))
+        privkey = crypto.load_privkey(app["privkey"].encode("ascii"))
+        lickey = signkey.public_key()
+        pubkey = privkey.public_key()
+
+        cur.execute(
+            "SELECT l.CreatedDtm AS createdat, l.Content AS content, l.CreatedBy AS createdby"
+            " FROM License l"
+            " WHERE l.AppCode = %s"
+            " ORDER BY l.CreatedDtm DESC",
+            (appcode,),
+        )
+        app["lics"] = cur.fetchall()
+
+        return render_template(
+            "detail_end.html",
+            app=app,
+            lickey=crypto.export_pubkey(lickey).decode("ascii"),
+            pubkey=crypto.export_pubkey(pubkey).decode("ascii"),
+        )
+
+    return "Not found", 404
 
 @bp.route("/<appcode>/lic/generate", methods=("POST",))
 def generate_lic(appcode):
