@@ -14,7 +14,8 @@ from flask import (
 )
 
 from liana.db import get_db
-from . import crypto, lic
+from . import crypto
+from . import lic as licmodule
 
 bp = Blueprint("app", __name__)
 
@@ -136,41 +137,41 @@ def delete(appcode):
     return redirect(url_for("index"))
 
 
-@bp.route("/<appcode>")
-def get_app(appcode):
-    db = get_db()
-    cur = db.cursor(dictionary=True)
-    cur.execute(
-        "SELECT a.AppCode AS code, a.SignatureKey AS signkey, a.PrivateKey AS privkey, a.Algorithm AS algorithm, 0 AS lic"
-        " FROM Application a"
-        " WHERE a.AppCode = %s",
-        (appcode,),
-    )
-    app = cur.fetchone()
+# @bp.route("/<appcode>")
+# def get_app(appcode):
+#     db = get_db()
+#     cur = db.cursor(dictionary=True)
+#     cur.execute(
+#         "SELECT a.AppCode AS code, a.SignatureKey AS signkey, a.PrivateKey AS privkey, a.Algorithm AS algorithm, 0 AS lic"
+#         " FROM Application a"
+#         " WHERE a.AppCode = %s",
+#         (appcode,),
+#     )
+#     app = cur.fetchone()
 
-    if app:
-        signkey = crypto.load_privkey(app["signkey"].encode("ascii"))
-        privkey = crypto.load_privkey(app["privkey"].encode("ascii"))
-        lickey = signkey.public_key()
-        pubkey = privkey.public_key()
+#     if app:
+#         signkey = crypto.load_privkey(app["signkey"].encode("ascii"))
+#         privkey = crypto.load_privkey(app["privkey"].encode("ascii"))
+#         lickey = signkey.public_key()
+#         pubkey = privkey.public_key()
 
-        cur.execute(
-            "SELECT l.CreatedDtm AS createdat, l.Content AS content, l.CreatedBy AS createdby"
-            " FROM License l"
-            " WHERE l.AppCode = %s"
-            " ORDER BY l.CreatedDtm DESC",
-            (appcode,),
-        )
-        app["lics"] = cur.fetchall()
+#         cur.execute(
+#             "SELECT l.CreatedDtm AS createdat, l.Content AS content, l.CreatedBy AS createdby"
+#             " FROM License l"
+#             " WHERE l.AppCode = %s"
+#             " ORDER BY l.CreatedDtm DESC",
+#             (appcode,),
+#         )
+#         app["lics"] = cur.fetchall()
 
-        return render_template(
-            "detail.html",
-            app=app,
-            lickey=crypto.export_pubkey(lickey).decode("ascii"),
-            pubkey=crypto.export_pubkey(pubkey).decode("ascii"),
-        )
+#         return render_template(
+#             "detail.html",
+#             app=app,
+#             lickey=crypto.export_pubkey(lickey).decode("ascii"),
+#             pubkey=crypto.export_pubkey(pubkey).decode("ascii"),
+#         )
 
-    return "Not found", 404
+#     return "Not found", 404
 
 @bp.route("/<appcode>/key")
 def key(appcode):
@@ -296,7 +297,7 @@ def generate_lic(appcode):
         payload = json.loads(request.form["payload"])
         signkey = app["signkey"].encode("ascii")
         algorithm = app["algorithm"]
-        license = lic.generate(payload, signkey, algorithm)
+        license = licmodule.generate(payload, signkey, algorithm)
 
         return jsonify(
             {

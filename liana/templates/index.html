@@ -25,7 +25,7 @@
 		<tbody>
 		{% for a in apps %}
 		  <tr>
-			<th scope="row" class="table-secondary"><a href="{{ a['code'] }}">{{ a["code"] }}</a></th>
+			<th scope="row" class="table-secondary"><a href="{{ url_for('app.key', appcode=a["code"]) }}">{{ a["code"] }}</a></th>
 			<td class="table-secondary">{{ a["algorithm"] }}</td>
 			<td class="table-secondary">{{ a["lic"] }}</td>
 			<td class="button-index table-secondary">
