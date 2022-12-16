@@ -10,38 +10,46 @@
 
 <div class="modal fade" tabindex="-1" id="license-modal">
     <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="payload">
-                    <label class="form-label" for="createdby">Payload (JSON)</label>
-                    <div class="form">
-                        <div id="payload" class="form-control" style="height: 400px;">{
-                            "hello": "World!"
-                            }
+        <form action="" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="payload">
+                        <label class="form-label" for="createdby">Payload (JSON)</label>
+                        <div class="form">
+                            <div id="payload" class="form-control" style="height: 400px;">{
+                                "hello": "World!"
+                                }
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="icon">
-                    <button id="generate" type="button" class="btn btn-primary">
-                        <i class="bi bi-arrow-right"></i>
-                    </button>
-                </div>
-                <div class="license">
-                    <label class="form-label" for="createdby">License</label>
-                    <div class="form">
-                        <textarea id="license" class="form-control" placeholder="License will be generated here"
-                            style="height: 400px;" readonly></textarea>
+                    <div class="icon">
+                        <button id="generate" type="button" class="btn btn-primary">
+                            <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                    <div class="license">
+                        <label class="form-label" for="createdby">License</label>
+                        <div class="form">
+                            <textarea name="content" id="license" class="form-control"
+                                placeholder="License will be generated here" style="height: 400px;" readonly></textarea>
+                        </div>
+                    </div>
+                    <div class="input-lic">
+                        <label class="" for="createdby">CreatedBy</label>
+                        <input class="form-control" name="createdby" id="createdby"
+                            value="{{ request.form['createdBy'] }}">
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary"></input>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button id="save" type="button" class="btn btn-primary">Save</button>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
 {% endblock %}
@@ -86,12 +94,16 @@
                     <tbody>
                         {% for l in app["lics"] %}
                         <tr>
-                            <td>
+                            <td class="lic-button">
                                 <a href="data:text/plain;base64,{{ l['content'] | b64encode }}"
                                     class="btn btn-primary" download="license.lic"><i class="bi bi-download"></i>
                                     DOWNLOAD</a>
-                                <button type="button" class="btn btn-danger"><i class="bi bi-trash3"></i>
-                                    DELETE</button>
+                                <form
+                                    action="{{ url_for('app.deletelic', appcode=app['code']) }}"
+                                    method="post">
+                                    <input class="btn btn-danger danger" type="submit" value="Delete"
+                                        onclick="return confirm('Are you sure?');">
+                                </form>
                             </td>
                             <td>{{ l["createdat"] }}</td>
                             <td>{{ l["createdby"] }}</td>
