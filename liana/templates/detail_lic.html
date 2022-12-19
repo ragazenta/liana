@@ -1,9 +1,5 @@
 {% extends "detail.html" %}
 
-{% block header %}
-<h1>{% block title %}Detail{% endblock %}</h1>
-{% endblock %}
-
 {% block contentlicss %}
 
 {% block contentlicmodal %}
@@ -71,9 +67,6 @@
                     &
                     DECRYPT</a>
             </li>
-            <li class="nav-item mt-1 mb-1" role="presentation">
-                <a type="sumbit" class="btn btn-success" href="{{ url_for('app.index') }}">back</a>
-            </li>
         </ul>
         {% endblock %}
         {% block contentlic %}
@@ -117,4 +110,64 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/ace-builds@1.14.0/src-noconflict/ace.min.js"></script>
+<script>
+    ace.config.set("basePath", "https://cdn.jsdelivr.net/npm/ace-builds@1.14.0/src-noconflict/");
+
+    const generateBtn = document.getElementById("generate");
+    const saveBtn = document.getElementById("save");
+    const payloadEditor = ace.edit("payload");
+    payloadEditor.session.setMode("ace/mode/json");
+    payloadEditor.setOptions({
+        fontFamily: "Fira Code",
+        fontSize: "0.875rem",
+    });
+    const licenseOutput = document.getElementById("license");
+    generateBtn.addEventListener("click", async e => {
+        const payload = payloadEditor.getValue();
+        try {
+            JSON.parse(payload);
+        } catch {
+            alert("Invalid JSON");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("payload", payload);
+
+        const response = await fetch(
+            "{{ url_for('app.generate_lic', appcode=app['code']) }}", {
+                method: "POST",
+                body: formData,
+            });
+
+        if (response.ok) {
+            const data = await response.json();
+            licenseOutput.value = data.license;
+        } else {
+            alert(`${response.status} ${response.statusText}\r\n\r\r\n${await response.text()}`);
+        }
+    });
+
+    saveBtn.addEventListener("click", async e => {
+        const content = licenseOutput.value;
+        const formData = new FormData();
+        formData.append("content", content);
+        formData.append("createdby", "fulan@binfulan.com");
+
+        const response = await fetch(
+            "{{ url_for('app.save_lic', appcode=app['code']) }}", {
+                method: "POST",
+                body: formData,
+            });
+
+        if (response.ok) {
+            const data = await response.json();
+            const licenseModal = bootstrap.Modal.getInstance(document.getElementById("license-modal"));
+            licenseModal.hide();
+        } else {
+            alert(`${response.status} ${response.statusText}\r\n\r\r\n${await response.text()}`);
+        }
+    });
+</script>
 {% endblock %}

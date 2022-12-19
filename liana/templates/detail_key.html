@@ -1,9 +1,5 @@
 {% extends "detail.html" %}
 
-{% block header %}
-<h1>{% block title %}Detail{% endblock %}</h1>
-{% endblock %}
-
 {% block contentkeyss %}
 
 <div class="con-luar-detail">
@@ -23,9 +19,6 @@
                     href="{{ url_for('app.end', appcode=app['code']) }}">ENCRYPT
                     &
                     DECRYPT</a>
-            </li>
-            <li class="nav-item mt-1 mb-1" role="presentation">
-                <a type="sumbit" class="btn btn-success" href="{{ url_for('app.index') }}">back</a>
             </li>
         </ul>
         {% endblock %}
