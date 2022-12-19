@@ -1,0 +1,68 @@
+{% extends "detail.html" %}
+
+{% block header %}
+<h1>{% block title %}Detail{% endblock %}</h1>
+{% endblock %}
+
+{% block contentendss %}
+
+<div class="con-luar-detail">
+    <div class="button-back" style="width: 70%;">
+        {% block contentends %}
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page"
+                    href="{{ url_for('app.key', appcode=app['code']) }}">KEY</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
+                    href="{{ url_for('app.lic', appcode=app['code']) }}">LICENSE</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active"
+                    href="{{ url_for('app.end', appcode=app['code']) }}">ENCRYPT
+                    &
+                    DECRYPT</a>
+            </li>
+            <li class="nav-item mt-1 mb-1" role="presentation">
+                <a type="sumbit" class="btn btn-success" href="{{ url_for('app.index') }}">back</a>
+            </li>
+        </ul>
+        {% endblock %}
+        {% block contentend %}
+        <div class="tab-pane fade show active mt-3 mb-3" id="contact-tab-pane" role="tabpanel"
+            aria-labelledby="contact-tab" tabindex="0">
+            <div class="enc">
+                <div class="decrypted">
+                    <label class="form-label" for="createdby">DECRYPTED</label>
+                    <div class="form">
+                        <textarea id="decrypted" class="form-control" placeholder="Leave a comment here"
+                            style="height: 150px; width: 100%;"></textarea>
+                    </div>
+                </div>
+                <div class="icon">
+                    <div class="">
+                        <button id="encrypt" type="button" class="btn btn-primary">
+                            <i class="bi-2 bi-arrow-right"></i>ENCRYPT
+                        </button>
+                    </div>
+                    <div class="mt-2">
+                        <button id="decrypt" type="button" class="btn btn-success">
+                            <i class="bi-2 bi-arrow-left"></i>DECRYPT
+                        </button>
+                    </div>
+                </div>
+                <div class="encrypted">
+                    <label class="form-label" for="createdby">ENCRYPTED</label>
+                    <div class="form">
+                        <textarea id="encrypted" class="form-control" placeholder=""
+                            style="height: 150px; width: 100%;"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+</div>
+
+{% endblock %}

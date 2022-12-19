@@ -32,8 +32,25 @@
                     {% endif %}
                 </select>
             </div>
+            
         </div>
-        <div class="con-button">
+        <div class="tab-pane">
+                <div class="signaturkey text-center">
+                    <label class="form-label" for="signkey">SignaturKey</label>
+                    <div class="form">
+                        <textarea class="form-control" placeholder="Leave a comment here" name="signkey"
+                            style="height: 120px"></textarea>
+                    </div>
+                </div>
+                <div class="privatekey text-center mt-3">
+                    <label class="form-label" for="privkey">PrivateKey</label>
+                    <div class="form">
+                        <textarea class="form-control" placeholder="Leave a comment here" name="privkey"
+                            style="height: 120px"></textarea>
+                    </div>
+                </div>
+            </div>
+        <div class="con-button mt-2">
             <input class="button-save btn btn-success" type="submit" value="Save">
         </div>
     </form>
