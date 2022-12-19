@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block header %}
-<h1>{% block title %}{{ app["code"] }}{% endblock %}</h1>
+<h1>{% block title %}Application : {{ app["code"] }}{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-<div class="buttonback">
-    <a type="sumbit" class="btn btn-success" href="{{ url_for('app.index') }}">back</a>
+<div class="col-md-12 text-center">
+    <a type="sumbit" class="btn btn-success" href="{{ url_for('app.index') }}">Back</a>
 </div>
 <div class="con-luar-detail">
     <div class="button-back" style="width: 70%;">
