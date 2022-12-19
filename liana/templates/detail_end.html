@@ -1,9 +1,5 @@
 {% extends "detail.html" %}
 
-{% block header %}
-<h1>{% block title %}Detail{% endblock %}</h1>
-{% endblock %}
-
 {% block contentendss %}
 
 <div class="con-luar-detail">
@@ -23,9 +19,6 @@
                     href="{{ url_for('app.end', appcode=app['code']) }}">ENCRYPT
                     &
                     DECRYPT</a>
-            </li>
-            <li class="nav-item mt-1 mb-1" role="presentation">
-                <a type="sumbit" class="btn btn-success" href="{{ url_for('app.index') }}">back</a>
             </li>
         </ul>
         {% endblock %}
@@ -65,4 +58,48 @@
     </div>
 </div>
 
+<script>
+    const encryptBtn = document.getElementById("encrypt");
+    const decryptBtn = document.getElementById("decrypt");
+    const encrypted = document.getElementById("encrypted");
+    const decrypted = document.getElementById("decrypted");
+
+    encryptBtn.addEventListener("click", async e => {
+        const content = decrypted.value;
+        const formData = new FormData();
+        formData.append("content", content);
+
+        const response = await fetch(
+            "{{ url_for('app.encrypt', appcode=app['code']) }}", {
+                method: "POST",
+                body: formData,
+            });
+
+        if (response.ok) {
+            const data = await response.json();
+            encrypted.value = data.result;
+        } else {
+            alert(`${response.status} ${response.statusText}\r\n\r\r\n${await response.text()}`);
+        }
+    });
+
+    decryptBtn.addEventListener("click", async e => {
+        const content = encrypted.value;
+        const formData = new FormData();
+        formData.append("content", content);
+
+        const response = await fetch(
+            "{{ url_for('app.decrypt', appcode=app['code']) }}", {
+                method: "POST",
+                body: formData,
+            });
+
+        if (response.ok) {
+            const data = await response.json();
+            decrypted.value = data.result;
+        } else {
+            alert(`${response.status} ${response.statusText}\r\n\r\r\n${await response.text()}`);
+        }
+    });
+</script>
 {% endblock %}
