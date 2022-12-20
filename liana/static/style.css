@@ -6,12 +6,6 @@ html {
     width: 100%;
 }
 
-.button-index {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-}
-
 .container-nav {
     margin: auto;
 }
@@ -26,71 +20,18 @@ html {
     margin: auto;
 }
 
-.table-content>.table {
-    box-shadow: 4px 5px 5px grey;
-}
-
-.content>header>h1 {
+.content > header > h1 {
     text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
-.container{
-    max-width: 500px;
-    width: 100%;
-    padding: 25px 30px;
-    margin: auto;
-    border: solid 1px black;
-    border-radius: 15px;
-
-}
-
-.container > form > .form1{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 15px 20px 8px 0;
-}
-
-form > .form1 > .input{
-    margin-bottom: 15px;
-    width: calc(100% / 2 - 20px);
-}
-
-.form1 > .input > label{
-    display: block;
-}
-
-.form1 > .input > input{
-    height: 45px;
-    width: 100%;
-}
-
-.form-1>.con-button {
-    margin: auto;
-    width: 10%;
-}
-
-.form-1>.button-save {
-    margin: auto;
-    float: right;
-}
-
-.form-2>.con-button {
-    margin: auto;
-    width: 10%;
-}
-
-.form-2>.button-save {
+.container {
+    max-width: 50%;
     margin: auto;
 }
 
-.form-2>.con-2>.Algorithm {
-    margin-top: -5px;
-}
-
-.con-luar-detail {
+.container-detail {
     width: 100%;
     padding-top: 20px;
     display: flex;
@@ -98,73 +39,50 @@ form > .form1 > .input{
     justify-content: center;
 }
 
-.modal-body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-}
-
-.btn-lic{
-    margin-left: 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-
-}
-
-.enc{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-}
-
-.payload{
-    width: 500px;
+.container-detail > div {
+    width: 60%;
 }
 
 .payload .ace-editor {
     height: 400px;
 }
 
-.license{
-    width: 700px;
-}
-
 .license textarea,
+.signkey textarea,
+.privkey textarea,
 .lickey textarea,
 .pubkey textarea {
     font-family: "Fira Code", monospace;
     font-size: 0.875rem;
 }
 
-.decrypted{
-    width: 100%;
+@media (max-width: 1199px) {
+    .container-detail > div {
+        width: 90%;
+    }
 }
 
-.encrypted{
-    width: 100%;
+@media (max-width: 991px) {
+    .container {
+        max-width: 60%;
+    }
 }
 
-.lic-button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-}
-
-.con-button input{
-    margin-left: 70%;
-}
-
-@media (max-width: 584px) {
-    .container{
-        max-width: 100%;
+@media (max-width: 767px) {
+    .container {
+        max-width: 90%;
     }
 
-    form > .form1 > .input{
-        margin-bottom: 15px;
-        width: 100%;
+    .table-content {
+        width: 90%;
+    }
+
+    button#generate > .bi-arrow-right::before,
+    button#encrypt > .bi-arrow-right::before {
+        content: "\f128";
+    }
+
+    button#decrypt > .bi-arrow-left::before {
+        content: "\f148";
     }
 }

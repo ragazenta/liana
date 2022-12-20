@@ -1,43 +1,46 @@
 {% extends "base.html" %}
 
 {% block header %}
-	<h1>{% block title %}Apps{% endblock %}</h1>
-	
-	{% if g.user %}
-	{% endif %}
+		<h1>{% block title %}Apps{% endblock %}</h1>
+		{% if g.user %}
+		{% endif %}
 {% endblock %}
 
 {% block content %}
-<div class="col-md-12 text-center">
-	<a type="sumbit" class="buttonnew btn btn-success mb-4" href="{{ url_for('app.create') }}">New</a>
-</div>
-<section class="table-content table-responsive">
-	
-	<table class="table text-center">
-		<thead>
-		  <tr class="table-primary">
-			<th scope="col">Application</th>
-			<th scope="col">Secret Algorithm</th>
-			<th scope="col">Licenses</th>
-			<th scope="col">Action</th>
-		  </tr>
-		</thead>
-		<tbody>
-		{% for a in apps %}
-		  <tr>
-			<th scope="row" class="table-secondary"><a href="{{ url_for('app.key', appcode=a["code"]) }}">{{ a["code"] }}</a></th>
-			<td class="table-secondary">{{ a["algorithm"] }}</td>
-			<td class="table-secondary">{{ a["lic"] }}</td>
-			<td class="button-index table-secondary">
-				<a type="sumbit" class="btn btn-warning" href="{{ url_for('app.update', appcode=a["code"]) }}">Edit</a>
-				<form action="{{ url_for('app.delete', appcode=a['code']) }}" method="post">
-					<input class="btn btn-danger danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
-				</form>
-			</td>
-		  </tr>
-		{% endfor %}
-		</tbody>
-	  </table>
-</section>
-
+	<div class="col-md-12 text-center">
+		<a type="sumbit" class="buttonnew btn btn-success mb-4" href="{{ url_for('app.create') }}">New</a>
+	</div>
+	<section class="table-content">
+		<table class="table text-center">
+			<thead>
+				<tr>
+					<th scope="col">Application</th>
+					<th scope="col">Secret Algorithm</th>
+					<th scope="col">Licenses</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for app in apps %}
+				<tr>
+					<th scope="row"><a href="{{ url_for('app.key', appcode=app['code']) }}">{{ app["code"] }}</a></th>
+					<td>{{ app["algorithm"] }}</td>
+					<td>{{ app["lic"] }}</td>
+					<td>
+						<form action="{{ url_for('app.delete', appcode=app['code']) }}" method="post">
+							<a class="btn btn-primary m-2" href="{{ url_for('app.update', appcode=app['code']) }}">
+								<i class="bi bi-pencil"></i>
+								<span class="d-none d-sm-none d-md-inline">EDIT</span>
+							</a>
+							<button class="btn btn-danger m-2" type="submit" onclick="return confirm('Are you sure?');">
+								<i class="bi bi-x-lg"></i>
+								<span class="d-none d-sm-none d-md-inline">DELETE</span>
+							</button>
+						</form>
+					</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</section>
 {% endblock %}

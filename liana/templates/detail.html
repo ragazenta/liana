@@ -1,30 +1,24 @@
 {% extends "base.html" %}
 
 {% block header %}
-<h1>{% block title %}Application : {{ app["code"] }}{% endblock %}</h1>
+        <h1>{% block title %}Application : {{ app["code"] }}{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-<div class="col-md-12 text-center">
-    <a type="sumbit" class="btn btn-success" href="{{ url_for('app.index') }}">Back</a>
-</div>
-<div class="con-luar-detail">
-    <div class="button-back" style="width: 70%;">
-        {% block contentkeys %}{% endblock %}
-        {% block contentlics %}{% endblock %}
-        {% block contentends %}{% endblock %}
-        <div class="tab-content mb-3 mt-3" id="myTabContent">
+    <div class="col-md-12 text-center">
+        <a class="btn btn-success" href="{{ url_for('app.index') }}">Back</a>
+    </div>
+    <div class="container-detail">
+        <div>
+            {% block contentkeys %}{% endblock %}
+            {% block contentlics %}{% endblock %}
+            {% block contentends %}{% endblock %}
+            <div class="tab-content mb-3 mt-3">
                 {% block contentkey %}{% endblock %}
                 {% block contentlicmodal %}{% endblock %}
                 {% block contentlic %}{% endblock %}
                 {% block contentend %}{% endblock %}
+            </div>
         </div>
     </div>
-</div>
-
-
-{% block contentjs %}
-{% endblock %}
-
-
 {% endblock %}

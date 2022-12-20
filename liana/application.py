@@ -122,8 +122,7 @@ def update(appcode):
 
             return redirect(url_for("index"))
             
-
-    return render_template("update.html", a=app)
+    return render_template("update.html", app=app)
 
 
 @bp.route("/<appcode>/delete", methods=("POST",))
@@ -134,6 +133,7 @@ def delete(appcode):
     cur.execute("DELETE FROM Application WHERE AppCode = %s", (appcode,))
     db.commit()
     return redirect(url_for("index"))
+
 
 @bp.route("/<appcode>/key")
 def key(appcode):
@@ -171,6 +171,7 @@ def key(appcode):
 
     return "Not found", 404
 
+
 @bp.route("/<appcode>/lic", methods=("GET", "POST"))
 def lic(appcode):
     if request.method == "POST":
@@ -189,6 +190,10 @@ def lic(appcode):
 
         return redirect(url_for("app.lic", appcode=appcode))
 
+    request_uri = ""
+    if "X-Forwarded-Request-Uri" in request.headers:
+        request_uri = request.headers.get("X-Forwarded-Request-Uri")
+
     db = get_db()
     cur = db.cursor(dictionary=True)
     cur.execute(
@@ -201,9 +206,8 @@ def lic(appcode):
 
     if app:
         signkey = crypto.load_privkey(app["signkey"].encode("ascii"))
-        privkey = crypto.load_privkey(app["privkey"].encode("ascii"))
         lickey = signkey.public_key()
-        pubkey = privkey.public_key()
+        lickeystr = crypto.export_pubkey(lickey).decode("ascii")
 
         cur.execute(
             "SELECT l.CreatedDtm AS createdat, l.Content AS content, l.CreatedBy AS createdby"
@@ -213,18 +217,26 @@ def lic(appcode):
             (appcode,),
         )
         app["lics"] = cur.fetchall()
+
+        for l in app["lics"]:
+            payload = licmodule.decode(l["content"], lickeystr, app["algorithm"])
+            l["payload"] = json.dumps(payload, indent=4)
 
         return render_template(
             "detail_lic.html",
+            uri=request_uri,
             app=app,
-            lickey=crypto.export_pubkey(lickey).decode("ascii"),
-            pubkey=crypto.export_pubkey(pubkey).decode("ascii"),
         )
 
     return "Not found", 404
 
+
 @bp.route("/<appcode>/end")
 def end(appcode):
+    request_uri = ""
+    if "X-Forwarded-Request-Uri" in request.headers:
+        request_uri = request.headers.get("X-Forwarded-Request-Uri")
+
     db = get_db()
     cur = db.cursor(dictionary=True)
     cur.execute(
@@ -236,28 +248,14 @@ def end(appcode):
     app = cur.fetchone()
 
     if app:
-        signkey = crypto.load_privkey(app["signkey"].encode("ascii"))
-        privkey = crypto.load_privkey(app["privkey"].encode("ascii"))
-        lickey = signkey.public_key()
-        pubkey = privkey.public_key()
-
-        cur.execute(
-            "SELECT l.CreatedDtm AS createdat, l.Content AS content, l.CreatedBy AS createdby"
-            " FROM License l"
-            " WHERE l.AppCode = %s"
-            " ORDER BY l.CreatedDtm DESC",
-            (appcode,),
-        )
-        app["lics"] = cur.fetchall()
-
         return render_template(
             "detail_end.html",
+            uri=request_uri,
             app=app,
-            lickey=crypto.export_pubkey(lickey).decode("ascii"),
-            pubkey=crypto.export_pubkey(pubkey).decode("ascii"),
         )
 
     return "Not found", 404
+
 
 @bp.route("/<appcode>/lic/generate", methods=("POST",))
 def generate_lic(appcode):
@@ -292,22 +290,6 @@ def generate_lic(appcode):
         404,
     )
 
-@bp.route("/<appcode>/lic/save", methods=("POST",))
-def save_lic(appcode):
-    content = request.form["content"]
-    createdby = request.form["createdby"]
-    createdat = datetime.now()
-
-    db = get_db()
-    cur = db.cursor()
-    cur.execute(
-        "INSERT INTO License (AppCode, CreatedDtm, Content, CreatedBy)"
-        " VALUES (%s, %s, %s, %s)",
-        (appcode, createdat, content, createdby),
-    )
-    db.commit()
-
-    return redirect(url_for("app.lic", appcode=appcode))
     
 @bp.route("/<appcode>/deletelic", methods=("POST",))
 def deletelic(appcode):
@@ -315,9 +297,13 @@ def deletelic(appcode):
     db = get_db()
     cur = db.cursor()
     createdat = request.form["createdat"]
-    cur.execute("DELETE FROM License WHERE AppCode = %s and CreatedDtm= %s", (appcode,createdat))
+    cur.execute(
+        "DELETE FROM License WHERE AppCode = %s and CreatedDtm= %s",
+        (appcode, createdat),
+    )
     db.commit()
     return redirect(url_for("app.lic", appcode=appcode))
+
 
 @bp.route("/<appcode>/encrypt", methods=("POST",))
 def encrypt(appcode):
@@ -359,6 +345,7 @@ def encrypt(appcode):
         ),
         404,
     )
+
 
 @bp.route("/<appcode>/decrypt", methods=("POST",))
 def decrypt(appcode):
