@@ -59,7 +59,7 @@
         formData.append("content", content);
 
         const response = await fetch(
-            "{{ url_for('app.encrypt', appcode=app['code']) }}", {
+            "{{ uri + url_for('app.encrypt', appcode=app['code']) }}", {
                 method: "POST",
                 body: formData,
             });
