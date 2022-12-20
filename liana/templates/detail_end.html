@@ -57,7 +57,7 @@
         {% endblock %}
     </div>
 </div>
-
+{% block contentjs %}
 <script>
     const encryptBtn = document.getElementById("encrypt");
     const decryptBtn = document.getElementById("decrypt");
@@ -102,4 +102,7 @@
         }
     });
 </script>
+
+
+{% endblock %}
 {% endblock %}

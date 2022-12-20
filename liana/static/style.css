@@ -74,6 +74,7 @@ form > .form1 > .input{
 
 .form-1>.button-save {
     margin: auto;
+    float: right;
 }
 
 .form-2>.con-button {
@@ -153,9 +154,8 @@ form > .form1 > .input{
     gap: 1rem;
 }
 
-.buttonback{
-    margin-left: 10%;
-    margin-top: -15px;
+.con-button input{
+    margin-left: 70%;
 }
 
 @media (max-width: 584px) {
