@@ -25,7 +25,8 @@ def index():
     db = get_db()
     cur = db.cursor(dictionary=True)
     cur.execute(
-        "SELECT a.AppCode AS code, a.Algorithm AS algorithm, 0 AS lic"
+        "SELECT a.AppCode AS code, a.Algorithm AS algorithm,"
+        " (SELECT COUNT(*) FROM License l WHERE l.AppCode = a.AppCode) AS lic"
         " FROM Application a"
         " ORDER BY a.AppCode ASC"
     )
