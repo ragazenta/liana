@@ -1,39 +1,32 @@
 {% extends "base.html" %}
 
 {% block header %}
-<h1>{% block title %}New{% endblock %}</h1>
+        <h1>{% block title %}New{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-
-<div class="container">
-    <form method="post">
-        <div class="form1">
-            <div class="input">
+    <div class="card container">
+        <form class="card-body row g-3" method="post">
+            <div class="col-md-6">
                 <label class="" for="appcode">Application</label>
-                <input class="form-control" name="appcode" id="appcode"
-                    value="{{ request.form['code'] }}" required>
+                <input class="form-control" name="appcode" id="appcode" value="{{ request.form['code'] }}" required>
             </div>
-            <div class="input">
+            <div class="col-md-6">
                 <label class="" for="algorithm">Secret Algorithm</label>
-                <select class="btn btn-primary dropdown-toggle" name="algorithm" id="algorithm"
-                    value="{{ request.form['algorithm'] }}">
-                    <option>Select</option>
+                <select class="form-select" name="algorithm" id="algorithm" value="{{ request.form['algorithm'] }}">
+                    <option></option>
                     <option>EC256</option>
                     <option>Ed25519</option>
                 </select>
             </div>
-            <div class="input">
-                    <label class="" for="createdby">CreatedBy</label>
-                    <input class="form-control" name="createdby" id="createdby"
-                        value="{{ request.form['createdBy'] }}">
+            <div class="col-md-6">
+                <label class="" for="createdby">Created By</label>
+                <input class="form-control" name="createdby" id="createdby" value="{{ request.form['createdby'] }}">
             </div>
-        </div>
-        <div class="con-button">
-            <input class="button-save btn btn-success" type="submit" value="Save">
-            <a type="sumbit" class="btn btn-secondary" href="{{ url_for('app.index') }}">Cansel</a>
-        </div>
-    </form>
-</div>
-
+            <div class="col-12 text-end">
+                <a class="btn btn-secondary" href="{{ url_for('app.index') }}">Cancel</a>
+                <input class="btn btn-success" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
 {% endblock %}
