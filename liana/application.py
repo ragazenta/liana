@@ -106,7 +106,7 @@ def update(appcode):
             if signaturekey != "" and privatekey != "":
                 crypto.load_privkey(signaturekey.encode("ascii"))
                 crypto.load_privkey(privatekey.encode("ascii"))
-                
+
                 cur.execute(
                     "UPDATE Application SET SignatureKey = %s, PrivateKey = %s, Algorithm = %s, CreatedBy = %s"
                     " WHERE AppCode = %s",
@@ -121,7 +121,7 @@ def update(appcode):
             db.commit()
 
             return redirect(url_for("index"))
-            
+
     return render_template("update.html", app=app)
 
 
@@ -176,6 +176,7 @@ def key(appcode):
 def lic(appcode):
     if request.method == "POST":
         content = request.form["content"]
+        content = content.replace("\r", "")
         createdby = request.form["createdby"]
         createdat = datetime.now()
 
@@ -290,7 +291,7 @@ def generate_lic(appcode):
         404,
     )
 
-    
+
 @bp.route("/<appcode>/deletelic", methods=("POST",))
 def deletelic(appcode):
     get_post(appcode)
