@@ -313,7 +313,8 @@ def deletelic(appcode):
     get_post(appcode)
     db = get_db()
     cur = db.cursor()
-    cur.execute("DELETE FROM License WHERE AppCode = %s", (appcode,))
+    createdat = request.form["createdat"]
+    cur.execute("DELETE FROM License WHERE AppCode = %s and CreatedDtm= %s", (appcode,createdat))
     db.commit()
     return redirect(url_for("app.lic", appcode=appcode))
 

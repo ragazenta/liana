@@ -1,6 +1,6 @@
 {% extends "detail.html" %}
 
-{% block contentlicss %}
+{% block content %}
 
 {% block contentlicmodal %}
 
@@ -94,6 +94,7 @@
                                 <form
                                     action="{{ url_for('app.deletelic', appcode=app['code']) }}"
                                     method="post">
+                                    <input type="hidden" name="createdat" value="{{ l["createdat"] }}">
                                     <input class="btn btn-danger danger" type="submit" value="Delete"
                                         onclick="return confirm('Are you sure?');">
                                 </form>
