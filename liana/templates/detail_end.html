@@ -1,6 +1,6 @@
 {% extends "detail.html" %}
 
-{% block content %}
+{% block contentendss %}
 
 <div class="con-luar-detail">
     <div class="button-back" style="width: 70%;">
@@ -57,7 +57,7 @@
         {% endblock %}
     </div>
 </div>
-
+{% block contentjs %}
 <script>
     const encryptBtn = document.getElementById("encrypt");
     const decryptBtn = document.getElementById("decrypt");
@@ -102,4 +102,7 @@
         }
     });
 </script>
+
+
+{% endblock %}
 {% endblock %}

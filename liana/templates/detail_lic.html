@@ -1,6 +1,6 @@
 {% extends "detail.html" %}
 
-{% block content %}
+{% block contentlicss %}
 
 {% block contentlicmodal %}
 
@@ -110,7 +110,7 @@
         {% endblock %}
     </div>
 </div>
-
+{% block contentjs %}
 <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.14.0/src-noconflict/ace.min.js"></script>
 <script>
     ace.config.set("basePath", "https://cdn.jsdelivr.net/npm/ace-builds@1.14.0/src-noconflict/");
@@ -171,4 +171,5 @@
         }
     });
 </script>
+{% endblock %}
 {% endblock %}
