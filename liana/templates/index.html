@@ -2,9 +2,6 @@
 
 {% block header %}
 		<h1>{% block title %}Apps{% endblock %}</h1>
-		{% if g.auth_email %}
-		<h4>{{ g.auth_email }}</h4>
-		{% endif %}
 {% endblock %}
 
 {% block content %}

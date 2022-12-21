@@ -9,7 +9,6 @@ from flask import (
     redirect,
     render_template,
     request,
-    session,
     url_for,
     jsonify,
 )
@@ -38,10 +37,18 @@ def authenticated(f):
     @wraps(f)
     def wrap(*args, **kwargs):
         auth_email = ""
+        auth_fullname = ""
+        auth_logout_url = "#"
         if "X-Auth-Email" in request.headers:
             auth_email = request.headers.get("X-Auth-Email")
+        if "X-Auth-FullName" in request.headers:
+            auth_fullname = request.headers.get("X-Auth-FullName")
+        if "X-Auth-Logout-Url" in request.headers:
+            auth_logout_url = request.headers.get("X-Auth-Logout-Url")
 
         g.auth_email = auth_email
+        g.auth_fullname = auth_fullname
+        g.auth_logout_url = auth_logout_url
         return f(*args, **kwargs)
 
     return wrap
@@ -255,7 +262,6 @@ def lic(appcode):
 
         return render_template(
             "detail_lic.html",
-            uri=g.request_uri,
             app=app,
         )
 
@@ -278,7 +284,6 @@ def end(appcode):
     if app:
         return render_template(
             "detail_end.html",
-            uri=g.request_uri,
             app=app,
         )
 

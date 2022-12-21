@@ -6,15 +6,6 @@ html {
     width: 100%;
 }
 
-.container-nav {
-    margin: auto;
-}
-
-.container-nav span {
-    font-size: 25px;
-    letter-spacing: 2px;
-}
-
 .table-content {
     width: 80%;
     margin: auto;

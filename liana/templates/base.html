@@ -8,9 +8,26 @@
 
 <!-- Navbar -->
 
-<nav class="navbar navbar-dark bg-primary">
-	<div class="container-nav">
+<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+	<div class="container-md">
 		<span class="navbar-brand mb-0 h1">Liana</span>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavDropdown">
+			<ul class="navbar-nav ms-auto">
+				{% if g.auth_fullname %}
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Welcome, {{ g.auth_fullname }}
+					</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="{{ g.auth_logout_url }}">Logout</a></li>
+					</ul>
+				</li>
+				{% endif %}
+			</ul>
+		</div>
 	</div>
 </nav>
 
