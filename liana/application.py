@@ -1,4 +1,5 @@
 import json
+from functools import wraps
 from datetime import datetime
 
 from flask import (
@@ -20,7 +21,32 @@ from . import lic as licmodule
 bp = Blueprint("app", __name__)
 
 
+def forwarded(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        request_uri = ""
+        if "X-Forwarded-Request-Uri" in request.headers:
+            request_uri = request.headers.get("X-Forwarded-Request-Uri")
+
+        g.request_uri = request_uri
+
+    return wrap
+
+
+def authenticated(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        auth_email = ""
+        if "X-Auth-Email" in request.headers:
+            auth_email = request.headers.get("X-Auth-Email")
+
+        g.auth_email = auth_email
+
+    return wrap
+
+
 @bp.route("/")
+@authenticated
 def index():
     db = get_db()
     cur = db.cursor(dictionary=True)
@@ -35,6 +61,8 @@ def index():
 
 
 @bp.route("/create", methods=("GET", "POST"))
+@forwarded
+@authenticated
 def create():
     if request.method == "POST":
         code = request.form["appcode"]
@@ -67,7 +95,7 @@ def create():
                 (code, signaturekey, privatekey, algorithm, createdby),
             )
             db.commit()
-            return redirect(url_for("index"))
+            return redirect(g.request_uri + url_for("index"))
 
     return render_template("create.html")
 
@@ -88,6 +116,8 @@ def get_post(appcode):
 
 
 @bp.route("/<appcode>/update", methods=("GET", "POST"))
+@forwarded
+@authenticated
 def update(appcode):
     app = get_post(appcode)
 
@@ -120,19 +150,19 @@ def update(appcode):
                 )
             db.commit()
 
-            return redirect(url_for("index"))
+            return redirect(g.request_uri + url_for("index"))
 
     return render_template("update.html", app=app)
 
 
 @bp.route("/<appcode>/delete", methods=("POST",))
+@forwarded
 def delete(appcode):
-    get_post(appcode)
     db = get_db()
     cur = db.cursor()
     cur.execute("DELETE FROM Application WHERE AppCode = %s", (appcode,))
     db.commit()
-    return redirect(url_for("index"))
+    return redirect(g.request_uri + url_for("index"))
 
 
 @bp.route("/<appcode>/key")
@@ -173,6 +203,8 @@ def key(appcode):
 
 
 @bp.route("/<appcode>/lic", methods=("GET", "POST"))
+@forwarded
+@authenticated
 def lic(appcode):
     if request.method == "POST":
         content = request.form["content"]
@@ -189,11 +221,7 @@ def lic(appcode):
         )
         db.commit()
 
-        return redirect(url_for("app.lic", appcode=appcode))
-
-    request_uri = ""
-    if "X-Forwarded-Request-Uri" in request.headers:
-        request_uri = request.headers.get("X-Forwarded-Request-Uri")
+        return redirect(g.request_uri + url_for("app.lic", appcode=appcode))
 
     db = get_db()
     cur = db.cursor(dictionary=True)
@@ -225,7 +253,7 @@ def lic(appcode):
 
         return render_template(
             "detail_lic.html",
-            uri=request_uri,
+            uri=g.request_uri,
             app=app,
         )
 
@@ -233,11 +261,8 @@ def lic(appcode):
 
 
 @bp.route("/<appcode>/end")
+@forwarded
 def end(appcode):
-    request_uri = ""
-    if "X-Forwarded-Request-Uri" in request.headers:
-        request_uri = request.headers.get("X-Forwarded-Request-Uri")
-
     db = get_db()
     cur = db.cursor(dictionary=True)
     cur.execute(
@@ -251,7 +276,7 @@ def end(appcode):
     if app:
         return render_template(
             "detail_end.html",
-            uri=request_uri,
+            uri=g.request_uri,
             app=app,
         )
 
@@ -293,8 +318,8 @@ def generate_lic(appcode):
 
 
 @bp.route("/<appcode>/deletelic", methods=("POST",))
+@forwarded
 def deletelic(appcode):
-    get_post(appcode)
     db = get_db()
     cur = db.cursor()
     createdat = request.form["createdat"]
@@ -303,7 +328,7 @@ def deletelic(appcode):
         (appcode, createdat),
     )
     db.commit()
-    return redirect(url_for("app.lic", appcode=appcode))
+    return redirect(g.request_uri + url_for("app.lic", appcode=appcode))
 
 
 @bp.route("/<appcode>/encrypt", methods=("POST",))
