@@ -1,62 +1,51 @@
 {% extends "detail.html" %}
 
-{% block contentendss %}
+{% block contentends %}
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page"
+                        href="{{ url_for('app.key', appcode=app['code']) }}">
+                        KEY
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                        href="{{ url_for('app.lic', appcode=app['code']) }}">
+                        LICENSE
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active"
+                        href="{{ url_for('app.end', appcode=app['code']) }}">
+                        ENCRYPT &amp; DECRYPT
+                    </a>
+                </li>
+            </ul>
+{% endblock %}
 
-<div class="con-luar-detail">
-    <div class="button-back" style="width: 70%;">
-        {% block contentends %}
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link" aria-current="page"
-                    href="{{ url_for('app.key', appcode=app['code']) }}">KEY</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"
-                    href="{{ url_for('app.lic', appcode=app['code']) }}">LICENSE</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active"
-                    href="{{ url_for('app.end', appcode=app['code']) }}">ENCRYPT
-                    &
-                    DECRYPT</a>
-            </li>
-        </ul>
-        {% endblock %}
-        {% block contentend %}
-        <div class="tab-pane fade show active mt-3 mb-3" id="contact-tab-pane" role="tabpanel"
-            aria-labelledby="contact-tab" tabindex="0">
-            <div class="enc">
-                <div class="decrypted">
-                    <label class="form-label" for="createdby">DECRYPTED</label>
-                    <div class="form">
-                        <textarea id="decrypted" class="form-control" placeholder="Leave a comment here"
-                            style="height: 150px; width: 100%;"></textarea>
+{% block contentend %}
+                <div class="tab-pane fade show active mt-3 mb-3" role="tabpanel" aria-labelledby="end-tab" tabindex="0">
+                    <div class="row g-3">
+                        <div class="col-md-5 decrypted">
+                            <label class="form-label" for="createdby">DECRYPTED</label>
+                            <textarea id="decrypted" class="form-control" placeholder="Enter decrypted text here" style="height: 150px;"></textarea>
+                        </div>
+                        <div class="col-md-2 text-center align-self-center">
+                            <button id="encrypt" type="button" class="btn btn-primary m-2">
+                                <i class="bi-2 bi-arrow-right"></i> ENCRYPT
+                            </button>
+                            <button id="decrypt" type="button" class="btn btn-success m-2">
+                                <i class="bi-2 bi-arrow-left"></i> DECRYPT
+                            </button>
+                        </div>
+                        <div class="col-md-5 encrypted">
+                            <label class="form-label" for="createdby">ENCRYPTED</label>
+                            <textarea id="encrypted" class="form-control" placeholder="Enter encrypted text here" style="height: 150px;"></textarea>
+                        </div>
                     </div>
                 </div>
-                <div class="icon">
-                    <div class="">
-                        <button id="encrypt" type="button" class="btn btn-primary">
-                            <i class="bi-2 bi-arrow-right"></i>ENCRYPT
-                        </button>
-                    </div>
-                    <div class="mt-2">
-                        <button id="decrypt" type="button" class="btn btn-success">
-                            <i class="bi-2 bi-arrow-left"></i>DECRYPT
-                        </button>
-                    </div>
-                </div>
-                <div class="encrypted">
-                    <label class="form-label" for="createdby">ENCRYPTED</label>
-                    <div class="form">
-                        <textarea id="encrypted" class="form-control" placeholder=""
-                            style="height: 150px; width: 100%;"></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endblock %}
-    </div>
-</div>
+{% endblock %}
+
 {% block contentjs %}
 <script>
     const encryptBtn = document.getElementById("encrypt");
@@ -70,7 +59,7 @@
         formData.append("content", content);
 
         const response = await fetch(
-            "{{ url_for('app.encrypt', appcode=app['code']) }}", {
+            "{{ uri + url_for('app.encrypt', appcode=app['code']) }}", {
                 method: "POST",
                 body: formData,
             });
@@ -89,7 +78,7 @@
         formData.append("content", content);
 
         const response = await fetch(
-            "{{ url_for('app.decrypt', appcode=app['code']) }}", {
+            "{{ uri + url_for('app.decrypt', appcode=app['code']) }}", {
                 method: "POST",
                 body: formData,
             });
@@ -102,7 +91,4 @@
         }
     });
 </script>
-
-
-{% endblock %}
 {% endblock %}

@@ -1,61 +1,36 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1>{% block title %}Edit : {{ a["code"] }}{% endblock %}</h1>
+        <h1>{% block title %}Edit : {{ app["code"] }}{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-
-<div class="container">
-    <form method="post">
-        <div class="form1">
-            <div class="input">
-                <label class="form-label" for="createdby">CreatedBy</label>
-                <input class="form-control" name="createdby" id="createdby"
-                    value="{{ request.form['createdby'] or a['createdby'] }}">
+    <div class="card container">
+        <form class="card-body row g-3" method="post">
+            <div class="col-md-6">
+                <label class="form-label" for="createdby">Created By</label>
+                <input class="form-control" name="createdby" id="createdby" value="{{ request.form['createdby'] or app['createdby'] }}">
             </div>
-            <div class="input">
+            <div class="col-md-6">
                 <label class="form-label" for="algorithm">Secret Algorithm</label>
-                <select class="btn btn-primary dropdown-toggle" name="algorithm" id="algorithm"
-                    value="{{ request.form['algorithm'] or a['algorithm'] }}">
+                <select class="form-select" name="algorithm" id="algorithm">
                     <option></option>
-                    {% if a['algorithm'] == "EC256"%}
-                    <option selected>EC256</option>
-                    {% else %}
-                    <option>EC256</option>
-                    {% endif %}
-
-                    {% if a['algorithm'] == "Ed25519"%}
-                    <option selected>Ed25519</option>
-                    {% else %}
-                    <option>Ed25519</option>
-                    {% endif %}
+                    <option{{ " selected" if app["algorithm"] == "EC256" else "" }}>EC256</option>
+                    <option{{ " selected" if app["algorithm"] == "Ed25519" else "" }}>Ed25519</option>
                 </select>
             </div>
-            
-        </div>
-        <div class="tab-pane">
-                <div class="signaturkey text-center">
-                    <label class="form-label" for="signkey">Signatur Key</label>
-                    <div class="form">
-                        <textarea class="form-control" placeholder="Enter signature key here" name="signkey"
-                            style="height: 120px"></textarea>
-                    </div>
-                </div>
-                <div class="privatekey text-center mt-3">
-                    <label class="form-label" for="privkey">Private Key</label>
-                    <div class="form">
-                        <textarea class="form-control" placeholder="Enter private key here" name="privkey"
-                            style="height: 120px"></textarea>
-                    </div>
-                </div>
+            <div class="col-12 signkey">
+                <label class="form-label" for="signkey">Signature Key</label>
+                <textarea class="form-control" placeholder="Enter signature key here" name="signkey" style="height: 120px"></textarea>
             </div>
-        <div class="con-button mt-2">
-            <input class="button-save btn btn-success" type="submit" value="Save">
-            <button type="cansel" class="btn btn-secondary" >Cansel</button>
-        </div>
-    </form>
-</div>
+            <div class="col-12 privkey">
+                <label class="form-label" for="privkey">Private Key</label>
+                <textarea class="form-control" placeholder="Enter private key here" name="privkey" style="height: 120px"></textarea>
+            </div>
+            <div class="col-12 text-end">
+                <a class="btn btn-secondary" href="{{ url_for('app.index') }}">Cancel</a>
+                <input class="btn btn-primary" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
 {% endblock %}
-
-<!-- or Application['AppCode'] -->

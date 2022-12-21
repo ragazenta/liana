@@ -1,51 +1,37 @@
 {% extends "detail.html" %}
 
-{% block contentkeyss %}
+{% block contentkeys %}
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"
+                        href="{{ url_for('app.key', appcode=app['code']) }}">
+                        KEY
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                        href="{{ url_for('app.lic', appcode=app['code']) }}">
+                        LICENSE
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                        href="{{ url_for('app.end', appcode=app['code']) }}">
+                        ENCRYPT &amp; DECRYPT
+                    </a>
+                </li>
+            </ul>
+{% endblock %}
 
-<div class="con-luar-detail">
-    <div class="button-back" style="width: 70%;">
-        {% block contentkeys %}
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page"
-                    href="{{ url_for('app.key', appcode=app['code']) }}">KEY</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"
-                    href="{{ url_for('app.lic', appcode=app['code']) }}">LICENSE</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"
-                    href="{{ url_for('app.end', appcode=app['code']) }}">ENCRYPT
-                    &
-                    DECRYPT</a>
-            </li>
-        </ul>
-        {% endblock %}
-        <div class="tab-content mb-3 mt-3" id="myTabContent">
-            {% block contentkey %}
-            <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
-                tabindex="0">
-                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
-                    tabindex="0">
+{% block contentkey %}
+                <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="key-tab" tabindex="0">
                     <div class="lickey text-center">
                         <label class="form-label" for="createdby">License Key</label>
-                        <div class="form">
-                            <textarea class="form-control" placeholder="Leave a comment here"
-                                style="height: 120px">{{ lickey }}</textarea>
-                        </div>
+                        <textarea class="form-control" style="height: 120px">{{ lickey }}</textarea>
                     </div>
                     <div class="pubkey text-center mt-3">
                         <label class="form-label" for="lickey">Public Key</label>
-                        <div class="form">
-                            <textarea class="form-control" placeholder="Leave a comment here"
-                                style="height: 120px">{{ pubkey }}</textarea>
-                        </div>
+                        <textarea class="form-control" style="height: 120px">{{ pubkey }}</textarea>
                     </div>
                 </div>
-            </div>
-            {% endblock %}
-        </div>
-    </div>
-</div>
 {% endblock %}
