@@ -29,6 +29,7 @@ def forwarded(f):
             request_uri = request.headers.get("X-Forwarded-Request-Uri")
 
         g.request_uri = request_uri
+        return f(*args, **kwargs)
 
     return wrap
 
@@ -41,6 +42,7 @@ def authenticated(f):
             auth_email = request.headers.get("X-Auth-Email")
 
         g.auth_email = auth_email
+        return f(*args, **kwargs)
 
     return wrap
 
