@@ -27,7 +27,7 @@
                                     <div class="col-md-4">
                                         <label class="" for="createdby">Created By</label>
                                         <input class="form-control" name="createdby" id="createdby"
-                                            value="{{ request.form['createdBy'] }}">
+                                            value="{{ g.auth_email }}">
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -131,7 +131,7 @@
         formData.append("payload", payload);
 
         const response = await fetch(
-            "{{ uri + url_for('app.generate_lic', appcode=app['code']) }}", {
+            "{{ g.request_uri + url_for('app.generate_lic', appcode=app['code']) }}", {
                 method: "POST",
                 body: formData,
             });

@@ -9,7 +9,7 @@
         <form class="card-body row g-3" method="post">
             <div class="col-md-6">
                 <label class="form-label" for="createdby">Created By</label>
-                <input class="form-control" name="createdby" id="createdby" value="{{ request.form['createdby'] or app['createdby'] }}">
+                <input class="form-control" name="createdby" id="createdby" value="{{ g.auth_email or request.form['createdby'] or app['createdby'] }}">
             </div>
             <div class="col-md-6">
                 <label class="form-label" for="algorithm">Secret Algorithm</label>
