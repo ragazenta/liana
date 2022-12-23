@@ -47,6 +47,19 @@ html {
     font-size: 0.875rem;
 }
 
+.btn-copy{
+    float: right;
+    position: relative;
+}
+
+#copyBtnlic{
+    font-size: 12px;
+}
+
+#copyBtnpub{
+    font-size: 12px;
+}
+
 @media (max-width: 1199px) {
     .container-detail > div {
         width: 90%;
